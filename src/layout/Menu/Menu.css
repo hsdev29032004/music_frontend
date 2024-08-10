@@ -1,0 +1,163 @@
+#menu #menu-action{
+    transition: 0.3s !important;
+}
+
+#menu *{
+    transition: none;
+}
+
+
+#menu{
+    position: fixed;
+    width: 230px;
+    background-color: #292929;
+    height: 100vh;
+    top: 0; left: 0 ;
+    color: #717171;
+    display: flex;
+    flex-direction: column;
+    z-index: 99;
+}
+
+.header-logo{
+    padding: 10px;
+    padding-bottom: 20px;
+}
+
+#menu ul{
+    padding: 0;
+}
+
+#menu ul li{
+    padding: 10px 20px;
+    margin: 0;
+}
+
+#menu .secondary ul li{
+    padding: 5px 20px;
+    margin: 0;
+}
+
+#menu a{
+    text-decoration: none;
+}
+
+#menu .active li{
+    /* background-color: #404040; */
+    color: white;
+}
+
+#menu ul{
+    position: relative;
+}
+
+#menu-action {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #404040;
+    width: 100%;
+    z-index: 1;
+    height: 25%;
+    box-shadow: inset 3px 0 0 0 #8F48CD;
+}
+
+.divide {
+    height: 1px;
+    margin: 20px 15px;
+    background-color: #3f3f3f;
+}
+
+.shadow {   
+    box-shadow: 0 4px 8px rgba(63, 63, 63, 0.6); /* Cập nhật box-shadow */
+}
+
+
+.add-playlist-sidebar{
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #3f3f3f;
+    width: 100%;
+    z-index: 4;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.secondary{
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 45px;
+}
+
+.card-nav-upgrade{
+    margin: 10px 20px;
+    background-color: #8F48CD;
+    border-radius: 15px;
+    color: white;
+    font-size: 13px;
+    padding: 10px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.btn-collapse{
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #3f3f3f;
+    width: 100%;
+    z-index: 4;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    display: none;
+    color: white;
+    background-color: #292929;
+}
+
+.icon-collapse{
+    padding: 5px;
+    background-color: #3c3c3c;
+    border-radius: 50%;
+}
+
+.icon-more{
+    display: none;
+    padding: 5px;
+}
+
+.icon-more:hover{
+    background-color: #3c3c3c;
+    border-radius: 50%
+}
+
+.playlist-item:hover .icon-more{
+    display: inline;
+}
+
+@media screen and (max-width: 1125px){
+    #menu{
+        width: 70px;
+    }
+
+    .secondary{
+        display: none;
+    }
+
+    #menu p{
+        display: none;
+    }
+
+    #menu i{
+        margin: 0;
+    }
+
+    .add-playlist-sidebar{
+        display: none;
+    }
+
+    .btn-collapse{
+        display: inline;
+        position: absolute;
+    }
+}

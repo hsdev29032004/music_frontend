@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Hoặc nếu bạn muốn tạo lớp CSS đặc biệt */
+body {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

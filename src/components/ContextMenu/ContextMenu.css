@@ -1,0 +1,90 @@
+/* Menu ngữ cảnh chính */
+.context-menu {
+    background-color: #333333;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    padding: 10px 0;
+    border-radius: 10px;
+}
+
+.context-menu button{
+    transition: 1s;
+}
+
+/* Danh sách các phần tử trong menu ngữ cảnh */
+.context-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Các thẻ li trong menu ngữ cảnh */
+.context-menu li {
+    margin: 0;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    color: #717171;
+}
+
+.context-menu i{
+    margin-right: 5px;
+}
+
+.context-menu li:hover {
+    color: white;
+}
+
+/* Các nút trong menu ngữ cảnh */
+.context-menu button {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    padding: 10px;
+    color: #717171;
+}
+
+.context-menu li:hover button{
+    color: white;
+}
+
+/* Hiệu ứng hover cho các nút trong menu ngữ cảnh */
+.context-menu li:hover {
+    background-color: #484848;
+}
+
+/* Đảm bảo menu ngữ cảnh nằm trên tất cả các phần tử khác */
+.context-menu {
+    z-index: 1000;
+}
+
+.add-to-pl{
+    position: relative;
+}
+
+.submenu{
+    display: none;
+    position: absolute;
+    top: 100%;
+    border-radius: 10px;
+    top: 0; right: 100%;
+    background-color: #333333;
+    padding: 10px 0;
+    white-space: nowrap;
+    height: 200px;
+    overflow-y: auto;
+}
+
+.add-to-pl:hover .submenu{
+    display: block;
+}
+
+.submenu li{
+    padding: 5px 10px;
+    font-size: 15px;
+}

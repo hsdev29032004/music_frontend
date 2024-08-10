@@ -1,0 +1,35 @@
+#auth{
+    height: 100vh; width: 100vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.bg-auth{
+    background-image: url(../../../public/images/bg-auth.png);
+}
+
+#auth ul li::before {
+    content: "\2713";
+    color: green;
+    margin-right: 10px;
+    font-weight: 700;
+}
+
+ul li{
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+
+.auth-logo{
+    width: 200px;
+}
+
+@media screen and (max-width: 768px) {
+    #auth .auth-left{
+        display: none;
+    }
+}

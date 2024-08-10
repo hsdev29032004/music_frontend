@@ -1,4 +1,4 @@
-import { _post } from "../utils/request"
+import { _get, _post } from "../utils/request"
 
 export const register = async (data) => {
     const response = await _post("/auth/register", data)
@@ -14,6 +14,12 @@ export const login = async (data) => {
 
 export const logout = async () => {
     const response = await _post("/auth/logout")
+    const result = await response.json()
+    return result
+}
+
+export const checkLogin = async () => {
+    const response = await _get("/auth/check-login")
     const result = await response.json()
     return result
 }

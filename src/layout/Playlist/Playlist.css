@@ -1,0 +1,129 @@
+#playlist{
+    position: fixed;
+    opacity: 1;
+    top: 0; right: 0;
+    background-color: #292929;
+    width: 300px;
+    height: 100%;
+    border-left: 1px solid #353535;
+    color: white;
+    z-index: 99;
+}
+
+#playlist.hidden{
+    visibility: 0;
+    right: -300px;
+}
+
+#playlist i{
+    cursor: pointer;
+    margin: 7px 13px;
+}
+
+.controls i{
+    font-size: 20px;
+}
+
+.controls{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inp-duration{
+    flex: 1;
+}
+
+.active{
+    color: yellow;
+}
+
+.lyrics p{
+    padding: 5px;
+    font-size: 20px;
+}
+
+.lyrics {
+    -webkit-mask-image: linear-gradient(
+        180deg, 
+        hsla(0, 0%, 100%, 0), 
+        hsla(0, 0%, 100%, .8) 20%, 
+        #fff 25%, 
+        #fff 75%, 
+        hsla(0, 0%, 100%, .8) 80%, 
+        hsla(0, 0%, 100%, 0)
+    );
+    mask-image: linear-gradient(
+        180deg, 
+        hsla(0, 0%, 100%, 0), 
+        hsla(0, 0%, 100%, .8) 20%, 
+        #fff 25%, 
+        #fff 75%, 
+        hsla(0, 0%, 100%, .8) 80%, 
+        hsla(0, 0%, 100%, 0)
+    );
+}
+
+.playlist-container li{
+    margin-left: 0;
+}
+
+.dragging{
+    opacity: 0;
+    z-index: 1000;
+}
+
+.btn-collapse-playlist{
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #414141;
+    border-radius: 5px;
+}
+
+.btn-collapse-playlist i{
+    padding: 7px 13px;
+    margin: 0 !important;
+}
+
+/* Playlist.css */
+.volume-container {
+    position: relative;
+    display: inline-block;
+    padding: 7px 13px;
+}
+
+.volume-container i{
+    margin: 0 !important;
+}
+
+.volume-slider {
+    /* rotate: -90deg; */
+    position: absolute;
+    left: 50%;
+    top: -110%;
+    width: 80px;
+    transition: opacity 0.3s ease;
+    transform: translateX(-50%) rotate(-90deg);
+    background-color: #414141;
+    display: none;
+    cursor: pointer;
+}
+
+.volume-container:hover .volume-slider {
+    display: block;
+}
+
+/* Căn giữa biểu tượng âm lượng */
+.volume-container i {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 1250px) {
+    .btn-collapse-playlist{
+        display: block;
+    }
+}

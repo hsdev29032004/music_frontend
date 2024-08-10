@@ -1,4 +1,4 @@
-import { _delete, _get, _patch, _post } from "../utils/request"
+import { _get, _patch, _post } from "../utils/request"
 
 export const getListMusic = async (keyword = "") => {
     const response = await _get(`/music?keyword=${keyword}`)
@@ -31,7 +31,7 @@ export const getLyrics = async (name) => {
 }
 
 export const addToPlaylist = async (data) => {
-    const response = await _post(`/music/add/aoPlaylist`, data)   
+    const response = await _post(`/music/add/toPlaylist`, data)   
     const result = await response.json()
     return result
 }
