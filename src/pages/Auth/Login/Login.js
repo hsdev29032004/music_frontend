@@ -29,7 +29,7 @@ export default function Login({title}) {
                     name="auth_form"
                     onFinish={onFinish}
                     layout="vertical"
-                    initialValues={{email: "admin@gmail.com", password: "meelow"}}
+                    initialValues={{email: "basic@gmail.com", password: "meelow"}}
                 >
                     <Form.Item
                         name="email"
