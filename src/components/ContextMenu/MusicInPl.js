@@ -45,13 +45,13 @@ export default function MusicInPlContextMenu({ menuPosition, musicKey, onNext })
     };
 
     const handleDeleteMIP = () => {
-        if((JSON.parse(localStorage.getItem("queuePlaylist")).length > 1)){  
-            const savedPlaylist = JSON.parse(localStorage.getItem("queuePlaylist"))
-            const filterMIP = savedPlaylist.filter(music => music.id !== musicKey)
-            localStorage.setItem("queuePlaylist", JSON.stringify(filterMIP)) 
+        if((JSON.parse(localStorage.getItem("queuePlaylist")).length > 1)){
             if(musicKey === localStorage.getItem("currentId")){
                 onNext()
             }
+            const savedPlaylist = JSON.parse(localStorage.getItem("queuePlaylist"))
+            const filterMIP = savedPlaylist.filter(music => music.id !== musicKey)
+            localStorage.setItem("queuePlaylist", JSON.stringify(filterMIP)) 
         }else if((JSON.parse(localStorage.getItem("queuePlaylist")).length) === 1){                        
             localStorage.removeItem("queuePlaylist")
             localStorage.removeItem("currentId")

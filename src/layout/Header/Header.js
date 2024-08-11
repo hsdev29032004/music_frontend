@@ -3,9 +3,11 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { logout } from "../../services/auth"
+import ChangePassword from "../../components/Modal/ChangePassword"
 
 export default function Header() {
     const [openMenuUser, setOpenMenuUser] = useState(false)
+    const [openModalChangePassword, setOpenModalChangePassword] = useState(false)
 
     const navigate = useNavigate()
 
@@ -47,6 +49,7 @@ export default function Header() {
 
     return (
         <>
+            <ChangePassword open={openModalChangePassword} setOpen={setOpenModalChangePassword}/>
             <div id="header">
                 <Row className="inner-header">
                     <Col xxl={9} xl={9} lg={9} md={9} sm={9} xs={9}>
@@ -80,6 +83,10 @@ export default function Header() {
                                             <li className="text-gray dflex-a-center">
                                                 <i className="fa-solid fa-user"></i>
                                                 <p className="ml-2">Thông tin cá nhân </p>
+                                            </li>
+                                            <li onClick={() => setOpenModalChangePassword(true)} className="text-gray dflex-a-center">
+                                                <i className="fa-solid fa-lock"></i>
+                                                <p className="ml-2">Đổi mật khẩu</p>
                                             </li>
                                             <li onClick={handleLogout} className="text-gray dflex-a-center">
                                                 <i className="fa-solid fa-right-from-bracket"></i>
