@@ -4,10 +4,12 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { logout } from "../../services/auth"
 import ChangePassword from "../../components/Modal/ChangePassword"
+import InfoUser from "../../components/Modal/InfoUser"
 
 export default function Header() {
     const [openMenuUser, setOpenMenuUser] = useState(false)
     const [openModalChangePassword, setOpenModalChangePassword] = useState(false)
+    const [openModalInfoUser, setOpenInfoUser] = useState(false)
 
     const navigate = useNavigate()
 
@@ -15,7 +17,7 @@ export default function Header() {
 
     const handleLogout = async () => {
         const result = await logout()
-        if(result.status === "success"){
+        if (result.status === "success") {
             navigate("/login")
         }
     }
@@ -49,7 +51,8 @@ export default function Header() {
 
     return (
         <>
-            <ChangePassword open={openModalChangePassword} setOpen={setOpenModalChangePassword}/>
+            <ChangePassword open={openModalChangePassword} setOpen={setOpenModalChangePassword} />
+            <InfoUser open={openModalInfoUser} setOpen={setOpenInfoUser}/>
             <div id="header">
                 <Row className="inner-header">
                     <Col xxl={9} xl={9} lg={9} md={9} sm={9} xs={9}>
@@ -64,7 +67,9 @@ export default function Header() {
                             {openMenuUser ? (
                                 <div className="menu-user">
                                     <div className="dflex-a-center">
-                                        <img style={{ width: "60px" }} src={value?.avatar} alt="" />
+                                        <div className="inner-avatar" style={{ width: "60px", height: "60px" }}>
+                                            <img src={value?.avatar} alt="" />
+                                        </div>
                                         <div className="ml-2">
                                             <h5 style={{ fontWeight: "700" }}>{value?.fullName}</h5>
                                             <span className="tag-level" style={level[value?.level]?.style}>{level[value?.level]?.name}</span>
@@ -80,7 +85,7 @@ export default function Header() {
                                     ) : null}
                                     <div className="list-hover">
                                         <ul>
-                                            <li className="text-gray dflex-a-center">
+                                            <li onClick={() => setOpenInfoUser(true)} className="text-gray dflex-a-center">
                                                 <i className="fa-solid fa-user"></i>
                                                 <p className="ml-2">Thông tin cá nhân </p>
                                             </li>

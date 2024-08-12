@@ -56,12 +56,12 @@ export default function ChangePassword({ open, setOpen }) {
 
                         <div className="mb-2">
                             <label>Mật khẩu mới</label>
-                            <input onChange={handleChange} placeholder='Nhập mật khẩu mới' name="newPassword" className='input input-modal mb-2'></input>
+                            <input type="password" onChange={handleChange} placeholder='Nhập mật khẩu mới' name="newPassword" className='input input-modal mb-2'></input>
                         </div>
                         
                         <div>
                             <label>Nhập lại mật khẩu mới</label>
-                            <input onChange={handleChange} placeholder='Nhập lại mật khẩu mới' name="reNewPassword" className='input input-modal'></input>
+                            <input type="password" onChange={handleChange} placeholder='Nhập lại mật khẩu mới' name="reNewPassword" className='input input-modal'></input>
                         </div>
                     </form>
                     <div className="modal-footer">

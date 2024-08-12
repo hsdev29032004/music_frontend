@@ -7,7 +7,51 @@ export default function Discover({title}){
     }, [])
     return(
         <>
-            Discover
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
+            <p>Discover</p>
         </>
     )
 }

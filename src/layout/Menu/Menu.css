@@ -1,5 +1,6 @@
 #menu #menu-action{
     transition: 0.3s !important;
+    cursor: pointer;
 }
 
 #menu *{

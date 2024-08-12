@@ -22,17 +22,25 @@ export const _post = async (path, data) => {
 }
 
 export const _patch = async (path, data) => {
-    const response = await fetch(API + path, {
+    const isFormData = data instanceof FormData;
+    const options = {
         method: "PATCH",
-        headers: {
+        credentials: 'include',
+        body: data
+    };
+
+    if (!isFormData) {
+        options.headers = {
             Accept: "application/json",
             "Content-Type": "application/json"
-        },
-        credentials: 'include',
-        body: JSON.stringify(data)
-    })
+        };
+        options.body = JSON.stringify(data);
+    }
+
+    const response = await fetch(API + path, options);
     return response
-}
+};
+
 
 export const _delete = async (path) => {
     const response = await fetch(API + path, {
