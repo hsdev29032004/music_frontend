@@ -2,51 +2,24 @@ import React, { /*useState,*/useRef, useEffect } from 'react';
 import './ContextMenu.css';
 import {useDispatch, useSelector} from "react-redux"
 import { closePlaylistMenuContext } from '../../actions/menuContext';
-import { deletePlaylist, getPlaylist } from '../../services/playlist';
+import { deletePlaylist } from '../../services/playlist';
 import { message } from 'antd';
 import { openModalEditPlaylist } from '../../actions/modal';
-import { loadPl } from '../../actions/loadPl';
-import { randomId } from '../../helpers/random';
+import { handleAddToWaitingList } from '../../helpers/playlist';
+import { handleCopy } from '../../helpers/copy';
 
 export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange }){        
     const [messageApi, contextHolder] = message.useMessage();
     const contextMenuRef = useRef(null);
     const dispatch = useDispatch()
 
-    const isMenuOpen = useSelector(state => state.playlistContextMenuReducer.playlistOpen)
-    // console.log(isMenuOpen);
-    
+    const isMenuOpen = useSelector(state => state.playlistContextMenuReducer.playlistOpen)    
     
     const handleClickOutside = (event) => {
         if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)){
             dispatch(closePlaylistMenuContext())
         }
     };
-
-    const handleAddToPlaylist = async () => {
-        let result = await getPlaylist(playlist.slug);
-        result = result.data.music
-        result.forEach(element => {
-            element.key = element._id
-            delete element._id
-            element.id = randomId(10)
-        });
-
-        const prevPl = JSON.parse(localStorage.getItem("queuePlaylist")) || []
-        const newPl = [
-            ...prevPl,
-            ...result
-        ]
-
-        if(result.length > 0){
-            localStorage.setItem('queuePlaylist', JSON.stringify(newPl));
-            dispatch(closePlaylistMenuContext());
-            dispatch(loadPl());
-        }else{
-            messageApi.error("Playlist rỗng", 1.5)
-        }
-    };
-    
 
     const handleDeletePlaylist = async () => {
         const result = await deletePlaylist(playlist._id)
@@ -64,17 +37,6 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
         dispatch(openModalEditPlaylist())
     }
 
-    const handleCopy = async (slug) => {
-        const url = `http://localhost:3000/playlist/${slug}`;
-        
-        try {
-            await navigator.clipboard.writeText(url);
-            messageApi.success("Sao chép liên kết thành công")
-        } catch (err) {
-            messageApi.success("Xảy ra lỗi")
-        }
-    };
-
     useEffect(() => {
         document.addEventListener('click', handleClickOutside);
         return () => {
@@ -83,7 +45,6 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
     // eslint-disable-next-line
     }, []);
 
-    // Tính toán vị trí menu
     const menuStyles = () => {
         if (!isMenuOpen) return {};
 
@@ -91,11 +52,10 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
         const menuHeight = 200;
         const windowHeight = window.innerHeight;
 
-        // Tính toán vị trí menu
         let adjustedTop = top + 10;
 
         if (adjustedTop + menuHeight > windowHeight) {
-            adjustedTop = top - menuHeight - 10; // Hiển thị phía trên nếu menu nằm ngoài màn hình dưới
+            adjustedTop = top - menuHeight - 10;
         }
 
         return {
@@ -116,7 +76,7 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
                     style={menuStyles()}
                 >
                     <ul style={{color: "white"}}>
-                        <li onClick={handleAddToPlaylist}>
+                        <li onClick={() => handleAddToWaitingList(playlist, dispatch, messageApi)}>
                             <i className="fa-regular fa-list-music"></i>
                             <button>Thêm vào danh sách phát</button>
                         </li>
@@ -129,7 +89,7 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
                             <button>Xóa playlist</button>
                         </li>
                         <li
-                            onClick={() => handleCopy(playlist.slug)}
+                            onClick={() => handleCopy(`http://localhost:3000/playlist/${playlist.slug}`, messageApi)}
                         >
                             <i className="fa-solid fa-link"></i>
                             <button>Sao chép liên kết</button>

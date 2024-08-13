@@ -1,0 +1,68 @@
+.inner-image{
+    flex-shrink: 0;
+    aspect-ratio: 5/3;
+    transition: transform 0.5s ease-in-out;
+}
+
+.inner-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.top-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.top-container:hover span{
+    display: block;
+}
+
+.top-container span {
+    cursor: pointer;
+    z-index: 10;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    border-radius: 50%;
+    background-color: rgb(150, 150, 150);
+    opacity: 0.5;
+    display: none;
+}
+
+.top-container span:hover{
+    background-color: rgb(109, 109, 109);
+}
+
+.top-container .anticon-left {
+    left: 30px;
+}
+
+.top-container .anticon-right {
+    right: 30px;
+}
+
+.first{
+    transform: translateX(-200%);
+}
+
+.prev {
+    transform: translateX(-100%);
+}
+
+.active {
+    transform: translateX(0);
+}
+
+.next {
+    transform: translateX(100%);
+}
+
+.last {
+    transform: translateX(200%);
+}

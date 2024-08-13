@@ -6,6 +6,7 @@ import { loadPl } from "../../actions/loadPl"
 import { message } from 'antd';
 import { openModalCreatePlaylist } from '../../actions/modal';
 import { addToPlaylist } from '../../services/music';
+import { handleCopy } from '../../helpers/copy';
 
 export default function MusicInPlContextMenu({ menuPosition, musicKey, onNext }){    
     const [messageApi, contextHolder] = message.useMessage();
@@ -63,12 +64,8 @@ export default function MusicInPlContextMenu({ menuPosition, musicKey, onNext })
     const handleCopyMIP = async () => {
         const slug = JSON.parse(localStorage.getItem("queuePlaylist")).find(item => item.id === musicKey).slug        
         const link = window.location.host + `/music/${slug}`
-        try {
-            await navigator.clipboard.writeText(link);
-            messageApi.success("Sao chép liên kết thành công")
-        } catch (err) {
-            messageApi.success("Xảy ra lỗi")
-        }
+        
+        handleCopy(link, messageApi)
     }
 
     const handleMove = (type) => {
