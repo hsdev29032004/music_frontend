@@ -14,7 +14,7 @@ export default function Playlist() {
     const [duration, setDuration] = useState(0);
     const [draggingIndex, setDraggingIndex] = useState(null);
     const [loop, setLoop] = useState(false)
-    const [volume, setVolume] = useState(0.8);
+    const [volume, setVolume] = useState(0.1);
     const [collapse, setCollapse] = useState(window.matchMedia('(max-width: 1250px)').matches);
 
     const containerRef = useRef(null);
@@ -28,9 +28,10 @@ export default function Playlist() {
 
     useEffect(() => {
         if (audioRef.current) {
-            audioRef.current.volume = volume;
+            audioRef.current.volume = volume;            
         }
-    }, [volume]);
+        // eslint-disable-next-line
+    }, [volume, audioRef.current])
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -46,7 +47,7 @@ export default function Playlist() {
         };
     }, [collapse])
 
-    useEffect(() => {
+    useEffect(() => {        
         const fetchPlaylist = async () => {
             const parsedPlaylist = JSON.parse(localStorage.getItem('queuePlaylist'));
             const savedId = localStorage.getItem('currentId');  
@@ -303,6 +304,7 @@ export default function Playlist() {
                             onLoadedMetadata={handleLoadedMetadata}
                             onEnded={handleEnded}
                             loop={loop}
+                            volume={volume}
                         />
                     </>
                 )}

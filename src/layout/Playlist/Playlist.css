@@ -7,7 +7,7 @@
     height: 100%;
     border-left: 1px solid #353535;
     color: white;
-    z-index: 99;
+    z-index: 101;
 }
 
 #playlist.hidden{
