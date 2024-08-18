@@ -55,7 +55,9 @@ export default function Layout() {
             <Header />
             <Menu />
             <div id="main" ref={mainRef}>
-                <Outlet />
+                <div className='container'>
+                    <Outlet />
+                </div>
                 {showFakeScroll && (
                     <div className="fake-scroll">
                         <div className="fake-scroll-thumb" ref={thumbRef}></div>

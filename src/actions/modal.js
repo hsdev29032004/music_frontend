@@ -13,3 +13,11 @@ export const openModalEditPlaylist = () => ({
 export const closeModalEditPlaylist = () => ({
     type: "CLOSE_MODAL_EDIT_PLAYLIST",
 })
+
+export const openModalEditAlbum = () => ({
+    type: "OPEN_MODAL_EDIT_ALBUM",
+})
+
+export const closeModalEditAlbum = () => ({
+    type: "CLOSE_MODAL_EDIT_ALBUM",
+})

@@ -89,10 +89,6 @@
     background-color: #595959;
 }
 
-.liked{
-    color: #9B4DE0;
-}
-
 p.ellipsis{
     color: #717171;
     display: inline;
@@ -112,4 +108,8 @@ p.ellipsis{
 
 .music-playlist-item i{
     margin: 7px 5px !important;
+}
+
+.fa-triangle{
+    transform: rotate(90deg);
 }

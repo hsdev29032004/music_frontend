@@ -15,7 +15,7 @@ export default function Playlist() {
     const [draggingIndex, setDraggingIndex] = useState(null);
     const [loop, setLoop] = useState(false)
     const [volume, setVolume] = useState(0.1);
-    const [collapse, setCollapse] = useState(window.matchMedia('(max-width: 1250px)').matches);
+    const [collapse, setCollapse] = useState(window.matchMedia('(max-width: 1350px)').matches);
 
     const containerRef = useRef(null);
     const audioRef = useRef(null);
@@ -24,7 +24,6 @@ export default function Playlist() {
     const user = useSelector(state => state.loginReducer.value);
     const loadPll = useSelector(state => state.loadPlReducer);
     const value = useSelector(state => state.musicInPlContextMenuReducer)
-    // console.log(value.data?.menuPosition);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -35,13 +34,13 @@ export default function Playlist() {
 
     useEffect(() => {
         window.addEventListener('resize', () => {
-            const smallScreen = window.matchMedia('(max-width: 1250px)');
+            const smallScreen = window.matchMedia('(max-width: 1350px)');
             setCollapse(smallScreen.matches);
         });
 
         return () => {
             window.removeEventListener('resize', () => {
-                const smallScreen = window.matchMedia('(max-width: 1250px)');
+                const smallScreen = window.matchMedia('(max-width: 1350px)');
                 setCollapse(smallScreen.matches);
             });
         };
@@ -279,11 +278,6 @@ export default function Playlist() {
                                 <span style={{ paddingLeft: "5px" }}>{formatTime(duration)}</span>
                             </div>
                             <div className='controls'>
-                                <i className="fa-solid fa-arrow-rotate-left" style={{ color: loop ? "#8b45ca" : "" }} onClick={() => setLoop(!loop)}></i>
-                                <i onClick={handlePrevious} className="fa-solid fa-backward"></i>
-                                <i className={`fa-solid fa-${isPlaying ? 'pause' : 'play'}`} onClick={handlePlayPause}></i>
-                                <i onClick={handleNext} className="fa-solid fa-forward"></i>
-                                {/* <i className="fa-solid fa-volume"></i> */}
                                 <div className='volume-container'>
                                     <i className="fa-solid fa-volume" style={{ position: 'relative' }}></i>
                                     <input
@@ -296,6 +290,10 @@ export default function Playlist() {
                                         onChange={(e) => setVolume(e.target.value)}
                                     />
                                 </div>
+                                <i onClick={handlePrevious} className="fa-solid fa-backward"></i>
+                                <i className={`fa-solid fa-${isPlaying ? 'pause' : 'play'}`} onClick={handlePlayPause}></i>
+                                <i onClick={handleNext} className="fa-solid fa-forward"></i>
+                                <i className="fa-solid fa-arrow-rotate-left" style={{ color: loop ? "#8b45ca" : "" }} onClick={() => setLoop(!loop)}></i>
                             </div>
                         </div>
                         <audio

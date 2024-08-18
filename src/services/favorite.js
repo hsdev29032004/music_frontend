@@ -7,7 +7,7 @@ export const likeMusic = async (musicId, userId) => {
 }
 
 export const likeAlbum = async (albumId, userId) => {
-    const response = await _post(`/favorite/music/${albumId}/${userId}`)
+    const response = await _post(`/favorite/album/${albumId}/${userId}`)
     const result = await response.json()
     return result
 }

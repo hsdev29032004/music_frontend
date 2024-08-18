@@ -53,7 +53,7 @@ export default function CreatePlaylist(props) {
             {contextHolder}
             <div className="modal-overlay">
                 <div className="modal-content">
-                    <h2 className="modal-title text-center">Tạo mới playlist</h2>
+                    <h2 className="modal-title">Tạo mới playlist</h2>
                     <div className="modal-body">
                         <input ref={inputRef} placeholder='Nhập tên playlist' className='input input-modal'></input>
                     </div>

@@ -1,0 +1,109 @@
+/* Gợi ý album */
+.inner-album-container{
+    overflow: hidden;
+}
+
+.inner-album-container .album-link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inner-album-container h3 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.inner-album-container a h3 {
+    color: white;
+    font-size: 15px;
+}
+
+.inner-album-container a.ellipsis:hover {
+    text-decoration: none;
+}
+
+.inner-album-container a {
+    font-weight: 600;
+    font-size: 13px;
+    color: #717171;
+}
+
+.inner-album-container a:hover {
+    color: #C273ED;
+}
+
+.inner-album-container a:hover h3{
+    color: #C273ED;
+}
+
+.inner-album-container .inner-image{
+    width: 100%;
+    aspect-ratio: 1/1;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.inner-album-container .inner-image img{
+    width: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.inner-album-container .inner-image:hover img{
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.tippy{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    gap: 4px;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    color: white;
+}
+
+.tippy i{
+    z-index: 4;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.tippy i:nth-child(2){
+    border: 1px solid white;
+}
+
+.tippy::before{
+    border-radius: 10px;
+    content: "";
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 100%;
+    z-index: 1;
+    background-color: #717171;
+    opacity: 0.3;
+    width: 100%
+}
+
+.tippy i:hover {
+    background-color: rgba(113, 113, 113, 0.3);
+}
+
+.tippy i:nth-child(2):hover {
+    background-color: transparent
+}
+
+.inner-album-container .inner-image:hover .tippy{
+    display: flex;
+}
+/* Gợi ý album */

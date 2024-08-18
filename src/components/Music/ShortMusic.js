@@ -50,7 +50,7 @@ export default function ShortMusic({ data, likedMusic, userId, active, onClick, 
     return (
         <>
             {contextHolder}
-            <div onClick={onClick} className={`music-playlist-item ${active ? "current-music" : ""}`}>
+            <div className={`music-playlist-item ${active ? "current-music" : ""}`}>
                 <div className="inner-item">
                     <div className="inner-img-playlist">
                         <img src={data.avatar} alt="" />
@@ -66,6 +66,7 @@ export default function ShortMusic({ data, likedMusic, userId, active, onClick, 
                     </div>
                 </div>
                 <div className="icon-container">
+                    <i onClick={onClick} className="fa-solid fa-triangle"></i>
                     <i ref={heartRef} onClick={handleLike} className={`fa-duotone fa-solid fa-heart ${likedMusic?.includes(data.key) ? 'liked' : ''}`}></i>
                     <i onClick={(event) => handleOpenMenu(event, musicKey)} className="fa-solid fa-ellipsis ml-2"></i>
                 </div>

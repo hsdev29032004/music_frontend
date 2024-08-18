@@ -9,7 +9,7 @@
     import { openModalCreatePlaylist } from '../../actions/modal';
     import { openPlaylistMenuContext } from '../../actions/menuContext';
     import EditPlaylist from '../../components/Modal/EditPlaylist';
-import { savePl } from '../../actions/playlist';
+    import { savePl } from '../../actions/playlist';
 
     export default function Menu() {
         const [collapse, setCollapse] = useState(window.matchMedia('(max-width: 1125px)').matches);

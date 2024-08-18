@@ -9,8 +9,15 @@ body {
 }
 
 *{
-  transition: 0.2s;
   box-sizing: border-box;
+}
+
+i{
+  transition: 0.2s;
+}
+
+#menu, #playlist{
+  transition: 0.2s;
 }
 
 code {
@@ -18,12 +25,6 @@ code {
     monospace;
 }
 
-/* .scroll-content{
-  height: 100vh;
-  width: 300px;
-  overflow-y: auto;
-  transition: 1s;
-}       */
 *::-webkit-scrollbar {
   width: 6px;
   height: 5px;
@@ -265,4 +266,16 @@ ul li{
   border-radius: 5px;
   padding: 2px 3px;
   margin-right: 2px;
+}
+
+.col-0, .col-xl-0, .col-lg-0, .col-md-0, .col-sm-0{
+  display: none;
+}
+
+.fa-duotone.fa-swap-opacity:before, .fa-duotone:after, .fa-swap-opacity .fa-duotone:before, .fa-swap-opacity .fad:before, .fad.fa-swap-opacity:before, .fad:after{
+  opacity: unset;
+}
+
+.liked{
+  color: #9B4DE0;
 }

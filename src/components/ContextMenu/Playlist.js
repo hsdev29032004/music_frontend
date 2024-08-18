@@ -1,4 +1,4 @@
-import React, { /*useState,*/useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import './ContextMenu.css';
 import {useDispatch, useSelector} from "react-redux"
 import { closePlaylistMenuContext } from '../../actions/menuContext';
@@ -76,7 +76,7 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
                     style={menuStyles()}
                 >
                     <ul style={{color: "white"}}>
-                        <li onClick={() => handleAddToWaitingList(playlist, dispatch, messageApi)}>
+                        <li onClick={() => handleAddToWaitingList(playlist, dispatch, messageApi, "PLAYLIST")}>
                             <i className="fa-regular fa-list-music"></i>
                             <button>Thêm vào danh sách phát</button>
                         </li>

@@ -15,3 +15,13 @@ export const closeMusicInPlMenuContext = () => ({
     type: "CLOSE_MUSICINPL_MENUCONTEXT",
     payload: null
 });
+
+export const openAlbumMenuContext = (obj) => ({
+    type: "OPEN_ALBUM_MENUCONTEXT",
+    payload: obj
+})
+
+export const closeAlbumMenuContext = () => ({
+    type: "CLOSE_ALBUM_MENUCONTEXT",
+    payload: null
+})

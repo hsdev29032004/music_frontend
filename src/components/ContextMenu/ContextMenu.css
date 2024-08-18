@@ -8,7 +8,7 @@
 }
 
 .context-menu button{
-    transition: 1s;
+    transition: 0.2s;
 }
 
 /* Danh sách các phần tử trong menu ngữ cảnh */
@@ -87,4 +87,9 @@
 .submenu li{
     padding: 5px 10px;
     font-size: 15px;
+}
+
+.ant-modal-content, .ant-modal-title{
+    background-color: #333333 !important;
+    color: white !important;
 }

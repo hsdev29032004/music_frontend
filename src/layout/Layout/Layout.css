@@ -51,6 +51,7 @@
     width: 6px;
     height: 100vh;
     z-index: 100;
+    transition: 0;
 }
 
 .fake-scroll-thumb {
@@ -61,6 +62,7 @@
     cursor: pointer;
     border-radius: 6px;
     display: none;
+    transition: 0;
 }
 
 #main:hover .fake-scroll-thumb{
@@ -78,12 +80,12 @@
     }
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1350px) {
     .inner-header{
         padding-right: 40px;
     }
     #main{
-            margin-right: 0px;
+        margin-right: 0px;
     }
 }
 
@@ -154,4 +156,8 @@
 
 .list-hover ul li:hover{
     background-color: #484848;
+}
+
+#main .container{
+    padding: 0;
 }
