@@ -5,15 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeModalEditAlbum } from '../../actions/modal';
 import { useForm } from 'antd/es/form/Form';
 import { editAlbum } from '../../services/album';
+import { reloadAlbum } from '../../actions/reload';
 
-export default function EditAlbum({ onAlbumChange, album, messageApi }) {    
+export default function EditAlbum({ messageApi }) {    
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = useForm()
     const dispatch = useDispatch()
     const [file, setFile] = useState(null)    
     
-    const open = useSelector(state => state.modalReducer.isEditAlbumOpen)
-
+    const album = useSelector(state => state.AlbumContextMenuReducer).data.album
+    
     useEffect(() => {
         return () => {
             if (file && typeof file === 'string') {
@@ -23,15 +24,15 @@ export default function EditAlbum({ onAlbumChange, album, messageApi }) {
     }, [file]);
 
     
-    useEffect(() => {
-        if (open && album && form) {
+    useEffect(() => {        
+        if (album && form) {
             form.setFieldsValue({
-                name: album.name,
-                singerId: album.singerId._id
+                name: album?.name,
+                singerId: album.singerId?._id
             });
         }
         // eslint-disable-next-line
-    }, [open])
+    }, [])
 
     const handleOk = async () => {
         setConfirmLoading(true);
@@ -53,7 +54,7 @@ export default function EditAlbum({ onAlbumChange, album, messageApi }) {
                         name: result.data.name || album?.name,
                     });
                     setFile(null)
-                    onAlbumChange()
+                    dispatch(reloadAlbum())
                     dispatch(closeModalEditAlbum())                    
                     messageApi.success(result.msg);                    
                 } else {
@@ -78,9 +79,6 @@ export default function EditAlbum({ onAlbumChange, album, messageApi }) {
             setFile(file);
         }
     };
-
-    if (!open) return null;
-
     return (
         <>
             <div className="modal-overlay">
@@ -110,7 +108,7 @@ export default function EditAlbum({ onAlbumChange, album, messageApi }) {
                         layout="vertical"
                         initialValues={{
                             name: album?.name,
-                            singerId: album?.singerId._id
+                            singerId: album.singerId?._id
                         }}
                     >
                         <Form.Item
@@ -129,8 +127,8 @@ export default function EditAlbum({ onAlbumChange, album, messageApi }) {
                                 dropdownStyle={{backgroundColor: "#454545"}}
                                 disabled
                             >
-                                <Select.Option value={album?.singerId._id}>
-                                    {album?.singerId.fullName}
+                                <Select.Option value={album.singerId?._id}>
+                                    {album.singerId?.fullName}
                                 </Select.Option>
                             </Select>
                         </Form.Item>

@@ -1,14 +1,16 @@
-export const playlistContextMenuReducer = (state = {}, action) => {
+export const playlistContextMenuReducer = (state = {}, action) => {    
     switch (action.type) {
         case "OPEN_PLAYLIST_MENUCONTEXT":
             return {
                 ...state,
                 playlistOpen: true,
+                data: action.payload
             };
         case "CLOSE_PLAYLIST_MENUCONTEXT":
             return {
                 ...state,
                 playlistOpen: false,
+                // data:action.payload
             };
         default:
             return state;

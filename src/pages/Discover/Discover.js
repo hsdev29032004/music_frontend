@@ -6,19 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import ShortMusic from "../../components/Music/ShortMusic"
 import Album from "../../components/Album/Album";
-import AlbumContextMenu from "../../components/ContextMenu/Album";
-import EditAlbum from "../../components/Modal/EditAlbum";
 import { getListAlbum } from "../../services/album";
 
 export default function Discover({ title }) {
     const [messageApi, contextHolder] = message.useMessage();
     const [currentIndex, setCurrentIndex] = useState(0); // Đặt giá trị ban đầu là 0
     const [initAlbum, setInitAlbum] = useState([])
-    const [albumChange, setAlbumChange] = useState(false)
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.loginReducer).value
-    const album = useSelector(state => state.AlbumContextMenuReducer)
+    const {albumChange: reloadAlbum} = useSelector(state => state.reloadReducer)
         
     useEffect(() => {
         document.title = title;
@@ -87,7 +84,7 @@ export default function Discover({ title }) {
             setInitAlbum(result.data)
        }
        fetchAlbum()
-    }, [albumChange])
+    }, [reloadAlbum])
 
     const initMusic = [
         {
@@ -221,8 +218,6 @@ export default function Discover({ title }) {
     return (
         <>
             {contextHolder}
-            <AlbumContextMenu messageApi={messageApi} user={user} onAlbumChange={() => setAlbumChange(!albumChange)}/>
-            <EditAlbum messageApi={messageApi} album={album.data?.album} onAlbumChange={() => setAlbumChange(!albumChange)}/>
             <div className="d-flex top-container">
                 <LeftOutlined onClick={handlePrevious} />
                 {initTopMusic.map((value, key) => (

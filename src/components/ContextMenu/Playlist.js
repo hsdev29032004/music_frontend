@@ -1,19 +1,17 @@
 import { useRef, useEffect } from 'react';
-import './ContextMenu.css';
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import { closePlaylistMenuContext } from '../../actions/menuContext';
 import { deletePlaylist } from '../../services/playlist';
 import { message } from 'antd';
 import { openModalEditPlaylist } from '../../actions/modal';
 import { handleAddToWaitingList } from '../../helpers/playlist';
 import { handleCopy } from '../../helpers/copy';
+import { reloadPlaylist } from '../../actions/reload';
 
-export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange }){        
+export default function PlaylistContextMenu({ menuPosition, playlist }){        
     const [messageApi, contextHolder] = message.useMessage();
     const contextMenuRef = useRef(null);
     const dispatch = useDispatch()
-
-    const isMenuOpen = useSelector(state => state.playlistContextMenuReducer.playlistOpen)    
     
     const handleClickOutside = (event) => {
         if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)){
@@ -25,7 +23,7 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
         const result = await deletePlaylist(playlist._id)
         
         if(result.status === "success"){
-            onPlChange()
+            dispatch(reloadPlaylist())
             dispatch(closePlaylistMenuContext())
         }else{
             messageApi.error(result.message)
@@ -46,8 +44,6 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
     }, []);
 
     const menuStyles = () => {
-        if (!isMenuOpen) return {};
-
         const { top, left } = menuPosition;
         const menuHeight = 200;
         const windowHeight = window.innerHeight;
@@ -67,7 +63,6 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
     };
 
     return (
-        isMenuOpen ? (
             <>
                 {contextHolder}
                 <div
@@ -97,6 +92,5 @@ export default function PlaylistContextMenu({ menuPosition, playlist, onPlChange
                     </ul>
                 </div>
             </>
-        ) : null
-    );
+        )
 };

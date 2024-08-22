@@ -2,25 +2,20 @@
 // User: Thêm vào danh sách nhạc chờ, coppy link
 // Admin: ..., sửa, xóa
 import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { closeAlbumMenuContext } from "../../actions/menuContext";
 import { handleCopy } from "../../helpers/copy";
 import { handleAddToWaitingList } from "../../helpers/playlist";
 import { openModalEditAlbum } from "../../actions/modal";
 import "../Modal/Modal.css"
 import { deleteAlbum } from "../../services/album";
+import { reloadPlaylist } from "../../actions/reload";
 
-export default function AlbumContextMenu({user, onAlbumChange, messageApi}) {
+export default function AlbumContextMenu({user, menuPosition, album, messageApi}) {
     const contextMenuRef = useRef(null);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
     const [confirmLoading, setConfirmLoading] = useState(false);
-
-    const albumContextMenu = useSelector(state => state.AlbumContextMenuReducer);
-
-    const menuPosition = albumContextMenu.data?.menuPosition;
-    const album = albumContextMenu.data?.album;
-    const isMenuOpen = albumContextMenu.albumOpen;
 
     const handleClickOutside = (event) => {
         if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
@@ -45,17 +40,17 @@ export default function AlbumContextMenu({user, onAlbumChange, messageApi}) {
 
         const result = await deleteAlbum(album?._id)
         if(result.status === "success"){
+            dispatch(reloadPlaylist())
             messageApi.success(result.msg)
             setOpen(false)
             setConfirmLoading(false)
-            onAlbumChange()
         }else{
             messageApi.error(result.msg)
         }
     }
 
     const menuStyles = () => {
-        if (!isMenuOpen) return {};
+        // if (!isMenuOpen) return {};
         
         const menuHeight = user?.level === 3 ? 200 : 110;
         const menuWidth = 260;
@@ -83,7 +78,7 @@ export default function AlbumContextMenu({user, onAlbumChange, messageApi}) {
         };
     };
 
-    return isMenuOpen ? (
+    return /*isMenuOpen ? */(
         <>
             <div
                 ref={contextMenuRef}
@@ -142,5 +137,5 @@ export default function AlbumContextMenu({user, onAlbumChange, messageApi}) {
                 ) : null}
             </div>
         </>
-    ) : null;
+    )/* : null; */
 }

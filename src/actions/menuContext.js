@@ -1,9 +1,11 @@
-export const openPlaylistMenuContext = () => ({
+export const openPlaylistMenuContext = (obj) => ({
     type: "OPEN_PLAYLIST_MENUCONTEXT",
+    payload: obj
 });
 
 export const closePlaylistMenuContext = () => ({
     type: "CLOSE_PLAYLIST_MENUCONTEXT",
+    payload: null
 });
 
 export const openMusicInPlMenuContext = (obj) => ({

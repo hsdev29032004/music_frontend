@@ -4,24 +4,23 @@ import { message } from 'antd';
 import { editPlaylist } from "../../services/playlist"
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModalEditPlaylist } from '../../actions/modal';
+import { reloadPlaylist } from '../../actions/reload';
 
-export default function EditPlaylist(props) {
-    const { onPlChange, playlist } = props;    
-
+export default function EditPlaylist() {
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const inputRef = useRef(null);
     const dispatch = useDispatch()
-    
-    const open = useSelector(state => state.modalReducer.isEditPlaylistOpen)    
 
+    const playlist = useSelector(state => state.playlistContextMenuReducer.data.playlist)    
+    
     useEffect(() => {
-        if (open && inputRef.current) {
+        if (inputRef.current) {
             inputRef.current.focus();
             inputRef.current.value = playlist.name
         }
         // eslint-disable-next-line
-    }, [open]);
+    }, []);
 
     const handleOk = async () => {
         const inputElement = document.querySelector('.input-modal');
@@ -34,9 +33,9 @@ export default function EditPlaylist(props) {
         setTimeout(async () => {
             const result = await editPlaylist( playlist._id, {name: inputElement.value})
             if (result.status === "success") {
+                dispatch(reloadPlaylist())
                 dispatch(closeModalEditPlaylist())
                 setConfirmLoading(false);
-                onPlChange()
                 messageApi.success(result.msg)
             } else {
                 messageApi.error(result.msg)
@@ -48,8 +47,6 @@ export default function EditPlaylist(props) {
     const handleCancel = async () => {
         dispatch(closeModalEditPlaylist())
     };
-
-    if (!open) return null;
 
     return (
         <>

@@ -1,5 +1,5 @@
 import { loadPl } from "../actions/loadPl";
-import { closePlaylistMenuContext } from "../actions/menuContext";
+import { closeAlbumMenuContext, closePlaylistMenuContext } from "../actions/menuContext";
 import { getOneAlbum } from "../services/album";
 import { getPlaylist } from "../services/playlist";
 import {randomId} from "./random"
@@ -32,8 +32,10 @@ export const handleAddToWaitingList = async (data, dispatch, messageApi, type) =
 
     if(result.length > 0){
         localStorage.setItem('queuePlaylist', JSON.stringify(newPl));
-        dispatch(closePlaylistMenuContext());
+        // dispatch(closePlaylistMenuContext());
+        // dispatch(closeAlbumMenuContext())
         dispatch(loadPl());
+        messageApi.success("Đã thêm vào danh sách bài hát chờ")
     }else{
         messageApi.error("Thư mục rỗng", 1.5)
     }

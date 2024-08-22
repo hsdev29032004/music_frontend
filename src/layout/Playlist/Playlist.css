@@ -81,6 +81,7 @@
     right: 20px;
     background-color: #414141;
     border-radius: 5px;
+    transition: 0.2s;
 }
 
 .btn-collapse-playlist i{

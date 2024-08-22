@@ -1,24 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
-import './Modal.css';
 import { message } from 'antd';
 import { createPlaylist } from "../../services/playlist"
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { closeModalCreatePlaylist } from '../../actions/modal';
+import { reloadPlaylist } from '../../actions/reload';
 
-export default function CreatePlaylist(props) {
-    const { onPlChange } = props;
+export default function CreatePlaylist() {
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const inputRef = useRef(null);
     const dispatch = useDispatch()
     
-    const open = useSelector(state => state.modalReducer.isCreatePlaylistOpen)    
-
     useEffect(() => {
-        if (open && inputRef.current) {
+        if (inputRef.current) {
             inputRef.current.focus();
         }
-    }, [open]);
+    }, []);
 
     const handleOk = async () => {
         const inputElement = document.querySelector('.input-modal');
@@ -32,8 +29,8 @@ export default function CreatePlaylist(props) {
             const result = await createPlaylist({ name: inputElement.value })
             if (result.status === "success") {
                 dispatch(closeModalCreatePlaylist())
+                dispatch(reloadPlaylist())
                 setConfirmLoading(false);
-                onPlChange()
                 messageApi.success(result.msg)
             } else {
                 messageApi.error(result.msg)
@@ -45,8 +42,6 @@ export default function CreatePlaylist(props) {
     const handleCancel = async () => {
         dispatch(closeModalCreatePlaylist())
     };
-
-    if (!open) return null;
 
     return (
         <>

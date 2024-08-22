@@ -1,41 +1,35 @@
     import { useState, useRef, useEffect } from 'react';
     import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-    import CreatePlaylist from '../../components/Modal/CreatePlaylist';
     import { getListPlaylist } from '../../services/playlist';
-    import PlaylistContextMenu from '../../components/ContextMenu/Playlist';
     import { useDispatch, useSelector } from 'react-redux';
     import { Link, NavLink, useLocation } from 'react-router-dom';
     import './Menu.css';
     import { openModalCreatePlaylist } from '../../actions/modal';
     import { openPlaylistMenuContext } from '../../actions/menuContext';
-    import EditPlaylist from '../../components/Modal/EditPlaylist';
-    import { savePl } from '../../actions/playlist';
+    // import { savePl } from '../../actions/playlist';
 
     export default function Menu() {
         const [collapse, setCollapse] = useState(window.matchMedia('(max-width: 1125px)').matches);
-        // const [playlist, setPlaylist] = useState([]);
-        const [loadPl, setLoadPl] = useState(true);
-        const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
-        const [playlistProps, setPlaylistProps] = useState({})
+        const [playlist, setPlaylist] = useState([])
         const dispatch = useDispatch()
-        const location = useLocation();
+        const location = useLocation();        
 
         const menuRef = useRef(null);
         const imgRef = useRef(null);
         const secondaryRef = useRef(null);    
 
         const { value } = useSelector(state => state.loginReducer);
-        const playlist = useSelector(state => state.savePlReducer)         
+        // const playlist = useSelector(state => state.savePlReducer)
+        
+        const {playlistChange: reloadPlaylist} = useSelector(state => state.reloadReducer)        
 
-        const handleOpenMenu = (event, playlist) => {        
+        const handleOpenMenu = (event, playlist) => {                    
             event.preventDefault();
             event.stopPropagation(); // Thêm để hiển thị menucontext
             
             const { clientX: left, clientY: top } = event;
-            
-            setPlaylistProps(playlist)
-            setMenuPosition({ top, left });
-            dispatch(openPlaylistMenuContext())
+                        
+            dispatch(openPlaylistMenuContext({playlist: playlist, menuPosition: {top, left}}))
         };
 
         const handleClick = () => {
@@ -44,10 +38,6 @@
 
         const changeStt = () => {
             dispatch(openModalCreatePlaylist())
-        };
-
-        const handlePlChange = () => {
-            setLoadPl(!loadPl);
         };
 
         useEffect(() => {            
@@ -113,15 +103,15 @@
         useEffect(() => {
             const fetchPlaylist = async () => {
                 const result = await getListPlaylist(value?._id);
-                // setPlaylist(result.data);
-                dispatch(savePl(result.data))
+                setPlaylist(result.data)
+                // dispatch(savePl(result.data))
             };
 
             if (value?._id) {
                 fetchPlaylist();
             }
             // eslint-disable-next-line
-        }, [value, loadPl]);
+        }, [value, reloadPlaylist]);
 
         useEffect(() => {
             const listItems = document.querySelectorAll(".menu-content ul li");
@@ -186,13 +176,6 @@
 
         return (
             <>
-                <CreatePlaylist onPlChange={handlePlChange}/>
-                <PlaylistContextMenu
-                    menuPosition={menuPosition}
-                    playlist={playlistProps}
-                    onPlChange={handlePlChange}
-                />
-                <EditPlaylist playlist={playlistProps} onPlChange={handlePlChange}/>
                 <div id="menu" ref={menuRef}>
                     <div className="header-logo dflex-aj-center">
                         <img

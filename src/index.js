@@ -7,6 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import allReducers from './reducers';
 import { createStore } from "redux"
 import {Provider} from "react-redux"
+import ContextMenu from './components/ContextMenu/ContextMenu';
+import Modal from './components/Modal/Modal';
 
 const store = createStore(allReducers)
 
@@ -15,6 +17,8 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <App />
+        <ContextMenu />
+        <Modal />
       </BrowserRouter>
     </Provider>
 );

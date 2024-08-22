@@ -3,7 +3,7 @@ import { loginReducer } from "./login";
 import { modalReducer } from "./modal";
 import { playlistContextMenuReducer, musicInPlContextMenuReducer, AlbumContextMenuReducer } from "./menuContext";
 import { loadPlReducer } from "./loadPl";
-import { savePlReducer } from "./savePl";
+import { reloadReducer } from "./reload";
 
 const allReducers = combineReducers({
     loginReducer,
@@ -12,7 +12,7 @@ const allReducers = combineReducers({
     musicInPlContextMenuReducer,
     AlbumContextMenuReducer,
     loadPlReducer,
-    savePlReducer
+    reloadReducer
 });
 
 export default allReducers;
