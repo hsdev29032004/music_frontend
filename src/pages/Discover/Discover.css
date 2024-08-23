@@ -65,3 +65,20 @@
 .last {
     transform: translateX(200%);
 }
+
+.inner-musicType-container .inner-image img{
+    width: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.inner-musicType-container .inner-image{
+    overflow: hidden;
+    aspect-ratio: 5/2;
+    border-radius: 10px;
+}
+
+.inner-musicType-container .inner-image:hover img{
+    transform: scale(1.1);
+    transition: 0.5s;
+}

@@ -7,13 +7,12 @@ import { openModalCreatePlaylist } from '../../actions/modal';
 import { addToPlaylist } from '../../services/music';
 import { handleCopy } from '../../helpers/copy';
 
-export default function MusicInPlContextMenu({ menuPosition, musicKey, onNext }){    
+export default function MusicInPlContextMenu({ menuPosition, musicKey, onNext, playlist }){    
     const [messageApi, contextHolder] = message.useMessage();
     const contextMenuRef = useRef(null);
     const dispatch = useDispatch()
 
     const isMenuOpen = useSelector(state => state.musicInPlContextMenuReducer.musicInPlOpen) 
-    const playlist = useSelector(state => state.savePlReducer)
 
     const handleClickOutside = (event) => {
         if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {

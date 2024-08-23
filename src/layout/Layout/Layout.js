@@ -63,6 +63,7 @@ export default function Layout() {
                         <div className="fake-scroll-thumb" ref={thumbRef}></div>
                     </div>
                 )}
+                <footer className='pt-2 pb-2 mt-4 text-center' style={{borderTop: "1px solid #3f3f3f", color: "#717171", fontSize: "15px"}}>The user interface of this website is modified from ZingMP3</footer>
             </div>
             <Playlist />
         </>

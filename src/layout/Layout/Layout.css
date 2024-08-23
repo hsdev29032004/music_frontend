@@ -8,6 +8,8 @@
     overflow-y: auto;
     color: white;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 #header::before{
@@ -160,4 +162,5 @@
 
 #main .container{
     padding: 0;
+    flex-grow: 1;
 }

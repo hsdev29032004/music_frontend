@@ -8,7 +8,7 @@ export default function Singer({value, messageApi}){
     return(
         <>
             <div className="inner-image">
-                <img src={value.avatar} />
+                <img src={value.avatar} alt=""/>
                 <div className="tippy">
                     <i onClick={() => handleReplaceWaitingList(value, dispatch, messageApi, "SINGER")} className="fa-solid fa-triangle border-white"></i>
                 </div>
