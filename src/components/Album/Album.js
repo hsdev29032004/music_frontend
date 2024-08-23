@@ -38,7 +38,7 @@ export default function Album({value, messageApi, user}) {
                 <img src={value.avatar} alt="" />
                 <div className="tippy">
                     <i ref={heartRef} className={`fa-duotone fa-solid fa-heart ${user?.likedAlbum?.includes(value._id) ? 'liked' : ''}`} onClick={handleLike}></i>
-                    <i className="fa-solid fa-triangle" onClick={() => handleReplaceWaitingList(value, dispatch, messageApi, "ALBUM")}></i>
+                    <i className="fa-solid fa-triangle border-white" onClick={() => handleReplaceWaitingList(value, dispatch, messageApi, "ALBUM")}></i>
                     <i onClick={(event) => handleOpenMenu(event, value)} className="fa-solid fa-ellipsis"></i>
                 </div>
             </div>

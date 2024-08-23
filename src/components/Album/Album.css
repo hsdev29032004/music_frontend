@@ -40,7 +40,6 @@
 .inner-album-container .inner-image{
     width: 100%;
     aspect-ratio: 1/1;
-    flex-shrink: 0;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -75,10 +74,6 @@
     z-index: 4;
     padding: 8px;
     border-radius: 50%;
-}
-
-.tippy i:nth-child(2){
-    border: 1px solid white;
 }
 
 .tippy::before{

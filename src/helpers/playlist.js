@@ -2,6 +2,7 @@ import { loadPl } from "../actions/loadPl";
 import { closeAlbumMenuContext, closePlaylistMenuContext } from "../actions/menuContext";
 import { getOneAlbum } from "../services/album";
 import { getPlaylist } from "../services/playlist";
+import { getSinger } from "../services/singer";
 import {randomId} from "./random"
 
 export const handleAddToWaitingList = async (data, dispatch, messageApi, type) => {
@@ -52,6 +53,9 @@ export const handleReplaceWaitingList = async (data, dispatch, messageApi, type)
             result = await getOneAlbum(data.slug)
             result = result.data.infoMusic
             break;
+        case "SINGER":
+            result = await getSinger(data.slug)
+            result = result.data.infoMusic
         default:
             break;
     }

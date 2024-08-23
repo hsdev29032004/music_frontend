@@ -12,13 +12,13 @@ export const getSinger = async (slug) => {
     return result
 }
 
-export const createSinge = async (data) => {
+export const createSinger = async (data) => {
     const response = await _post(`/singer/create`, data)
     const result = await response.json()
     return result
 }
 
-export const editSinger = async (id) => {
+export const editSinger = async (id, data) => {
     const response = await _post(`/singer/edit/${id}`, data)
     const result = await response.json()
     return result

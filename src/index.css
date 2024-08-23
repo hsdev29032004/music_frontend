@@ -279,3 +279,7 @@ ul li{
 .liked{
   color: #9B4DE0;
 }
+
+.border-white{
+  border: 1px solid white;
+}

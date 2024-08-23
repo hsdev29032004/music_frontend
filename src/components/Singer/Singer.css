@@ -1,0 +1,47 @@
+
+.singer-item .inner-image{
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 100%;
+    position: relative;
+}
+
+.inner-singer-container .album-link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inner-singer-container h3 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.inner-singer-container a h3 {
+    color: white;
+    font-size: 15px;
+}
+
+.inner-singer-container a:hover h3{
+    color: #C273ED;
+}
+
+.inner-singer-container a{
+    text-decoration: none;
+}
+
+.inner-singer-container .inner-image img{
+    width: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.inner-singer-container .inner-image:hover img{
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.inner-singer-container .inner-image:hover .tippy{
+    display: flex;
+}
