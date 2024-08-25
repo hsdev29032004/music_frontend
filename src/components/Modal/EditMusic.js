@@ -171,7 +171,7 @@ export default function EditMusic({ messageApi }) {
         <>
             <div className="modal-overlay">
                 <div className="modal-content" style={{ width: "1000px" }}>
-                    <h2 className="modal-title">Tạo mới bài hát</h2>
+                    <h2 className="modal-title">Chỉnh sửa bài hát</h2>
                     <div className='dflex-aj-center'>
                         <div className="avatar-container">
                             <img

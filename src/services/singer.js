@@ -1,7 +1,7 @@
 import { _get, _post } from "../utils/request"
 
-export const getListSinger = async () => {
-    const response = await _get(`/singer`)
+export const getListSinger = async (keyword = "") => {
+    const response = await _get(`/singer?keyword=${keyword}`)
     const result = await response.json()
     return result
 }

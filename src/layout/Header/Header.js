@@ -1,7 +1,7 @@
 import { Col, Row } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { logout } from "../../services/auth"
 import ChangePassword from "../../components/Modal/ChangePassword"
 import InfoUser from "../../components/Modal/InfoUser"
@@ -11,14 +11,28 @@ export default function Header() {
     const [openModalChangePassword, setOpenModalChangePassword] = useState(false)
     const [openModalInfoUser, setOpenInfoUser] = useState(false)
 
+    const location = useLocation();
     const navigate = useNavigate()
 
     const { value } = useSelector(state => state.loginReducer)
+
+    useEffect(() => {
+        const inputSearch = document.querySelector("#input-search")
+        inputSearch.value = ""
+    }, [location]);
 
     const handleLogout = async () => {
         const result = await logout()
         if (result.status === "success") {
             navigate("/login")
+        }
+    }
+
+    const handleSearch = async (e) => {      
+        if(e.key === "Enter" && e.target.value.trim() !== ""){
+            const keyword = e.target.value
+            e.target.value = ""
+            navigate(`search?keyword=${keyword}`)
         }
     }
 
@@ -56,7 +70,12 @@ export default function Header() {
             <div id="header">
                 <Row className="inner-header">
                     <Col xxl={9} xl={9} lg={9} md={9} sm={9} xs={9}>
-                        <input className="input-bora" placeholder="Tìm kiếm bài hát, ca sĩ, lời bài hát, ..." />
+                        <input 
+                            id="input-search"
+                            onKeyDown={(e) => handleSearch(e)} 
+                            className="input-bora" 
+                            placeholder="Tìm kiếm bài hát, ca sĩ, lời bài hát, ..." 
+                        />
                     </Col>
                     <Col xxl={15} xl={15} lg={15} md={15} sm={15} xs={15} style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
                         {value?.level === 1 && (
