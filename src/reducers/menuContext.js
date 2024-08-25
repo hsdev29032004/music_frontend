@@ -36,7 +36,7 @@ export const musicInPlContextMenuReducer = (state = {}, action) => {
     }
 }
 
-export const AlbumContextMenuReducer = (state = {}, action) => {
+export const albumContextMenuReducer = (state = {}, action) => {
     switch (action.type) {
         case "OPEN_ALBUM_MENUCONTEXT":
             return {
@@ -49,6 +49,24 @@ export const AlbumContextMenuReducer = (state = {}, action) => {
                 ...state,
                 albumOpen: false,
                 // data: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const musicContextMenuReducer = (state = {}, action) => {
+    switch (action.type) {
+        case "OPEN_MUSIC_MENUCONTEXT":
+            return {
+                ...state,
+                musicOpen: true,
+                data: action.payload
+            }
+        case "CLOSE_MUSIC_MENUCONTEXT":
+            return {
+                ...state,
+                musicOpen: false,
             }
         default:
             return state

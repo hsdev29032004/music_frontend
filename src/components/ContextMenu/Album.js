@@ -87,7 +87,7 @@ export default function AlbumContextMenu({user, menuPosition, album, messageApi}
             >
                 <ul style={{ color: "white" }}>
                     <li onClick={() => handleAddToWaitingList(album, dispatch, messageApi, "ALBUM")}>
-                        <i className="fa-regular fa-list-music"></i>
+                        <i className="fa-solid fa-play"></i>
                         <button>Thêm vào danh sách phát</button>
                     </li>
                     <li

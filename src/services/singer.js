@@ -12,6 +12,12 @@ export const getSinger = async (slug) => {
     return result
 }
 
+export const getAlbumsBySingerId = async (slug) => {
+    const response = await _get(`/singer/${slug}/albums`)
+    const result = await response.json()
+    return result
+}
+
 export const createSinger = async (data) => {
     const response = await _post(`/singer/create`, data)
     const result = await response.json()

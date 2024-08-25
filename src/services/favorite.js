@@ -13,7 +13,7 @@ export const likeAlbum = async (albumId, userId) => {
 }
 
 export const subcribeSinger = async (singerId, userId) => {
-    const response = await _post(`/favorite/music/${singerId}/${userId}`)
+    const response = await _post(`/favorite/singer/${singerId}/${userId}`)
     const result = await response.json()
     return result
 }

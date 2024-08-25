@@ -34,6 +34,16 @@ export const modalReducer = (state = initialState, action) => {
                 ...state,
                 isEditAlbumOpen: false,
             };
+        case "OPEN_MODAL_EDIT_MUSIC":
+            return {
+                ...state,
+                isEditMusicOpen: true,
+            };
+        case "CLOSE_MODAL_EDIT_MUSIC":
+            return {
+                ...state,
+                isEditMusicOpen: false,
+            };
         default:
             return state;
     }

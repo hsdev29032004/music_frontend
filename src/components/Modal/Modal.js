@@ -5,15 +5,13 @@ import EditAlbum from './EditAlbum';
 import { useSelector } from 'react-redux';
 import { message } from 'antd';
 import EditPlaylist from './EditPlaylist'
+import EditMusic from './EditMusic';
 // import InfoUser from './InfoUser'
 
 export default function Modal(){
-    const isEditAlbumOpen = useSelector(state => state.modalReducer.isEditAlbumOpen)
-    const isCreatePlaylistOpen = useSelector(state => state.modalReducer.isCreatePlaylistOpen)
-    const isEditPlaylistOpen = useSelector(state => state.modalReducer.isEditPlaylistOpen)    
+    const { isEditAlbumOpen, isCreatePlaylistOpen, isEditPlaylistOpen, isEditMusicOpen } = useSelector(state => state.modalReducer)    
 
-    const [messageApi, contextHolder] = message.useMessage();
-
+    const [messageApi, contextHolder] = message.useMessage()
     return (
         <>
             {contextHolder}
@@ -22,6 +20,7 @@ export default function Modal(){
             {isEditAlbumOpen ? <EditAlbum messageApi={messageApi}/> : null}
             {isEditPlaylistOpen ? <EditPlaylist /> : null}
             {/* <InfoUser /> */}
+            {isEditMusicOpen ? <EditMusic messageApi={messageApi} /> : null}
         </>
     )
 }

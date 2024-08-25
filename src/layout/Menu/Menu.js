@@ -6,6 +6,7 @@
     import './Menu.css';
     import { openModalCreatePlaylist } from '../../actions/modal';
     import { openPlaylistMenuContext } from '../../actions/menuContext';
+import { savePl } from '../../actions/savePl';
     // import { savePl } from '../../actions/playlist';
 
     export default function Menu() {
@@ -104,7 +105,7 @@
             const fetchPlaylist = async () => {
                 const result = await getListPlaylist(value?._id);
                 setPlaylist(result.data)
-                // dispatch(savePl(result.data))
+                dispatch(savePl(result.data))
             };
 
             if (value?._id) {

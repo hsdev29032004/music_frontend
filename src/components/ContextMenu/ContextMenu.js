@@ -4,14 +4,16 @@ import './ContextMenu.css';
 import { message } from 'antd';
 // import MusicInPlContextMenu from './MusicInPl';
 import PlaylistContextMenu from './Playlist';
+import MusicContextMenu from './Music';
 
 export default function ContextMenu(){
     const [messageApi, contextHolder] = message.useMessage();
 
-    const albumContextMenu = useSelector(state => state.AlbumContextMenuReducer);
+    const albumContextMenu = useSelector(state => state.albumContextMenuReducer);
     const playlistContextMenu = useSelector(state => state.playlistContextMenuReducer)
-
+    const musicContextMenu = useSelector(state => state.musicContextMenuReducer)
     const user = useSelector(state => state.loginReducer)
+    const playlistProp = useSelector(state => state.savePlReducer)
 
     return (
         <>
@@ -30,6 +32,16 @@ export default function ContextMenu(){
                 <PlaylistContextMenu 
                     menuPosition={playlistContextMenu.data?.menuPosition}
                     playlist={playlistContextMenu.data?.playlist}
+                /> :
+                null
+            }
+            {musicContextMenu?.musicOpen ? 
+                <MusicContextMenu
+                    menuPosition={musicContextMenu.data?.menuPosition}
+                    music={musicContextMenu.data?.music}
+                    messageApi={messageApi}
+                    playlist={playlistProp}
+                    user={user.value}
                 /> :
                 null
             }

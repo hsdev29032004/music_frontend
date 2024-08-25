@@ -72,7 +72,7 @@ export default function PlaylistContextMenu({ menuPosition, playlist }){
                 >
                     <ul style={{color: "white"}}>
                         <li onClick={() => handleAddToWaitingList(playlist, dispatch, messageApi, "PLAYLIST")}>
-                            <i className="fa-regular fa-list-music"></i>
+                            <i className="fa-solid fa-play"></i>
                             <button>Thêm vào danh sách phát</button>
                         </li>
                         <li onClick={handleEditPlaylist}>

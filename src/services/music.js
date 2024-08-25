@@ -19,7 +19,7 @@ export const deleteOneMusic = async (id) => {
 }
 
 export const editMusic = async (id, data) => {
-    const response = await _patch(`/album/edit/${id}`, data)
+    const response = await _patch(`/music/edit/${id}`, data)
     const result = await response.json()
     return result
 }

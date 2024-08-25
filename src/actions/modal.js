@@ -21,3 +21,11 @@ export const openModalEditAlbum = () => ({
 export const closeModalEditAlbum = () => ({
     type: "CLOSE_MODAL_EDIT_ALBUM",
 })
+
+export const openModalEditMusic = () => ({
+    type: "OPEN_MODAL_EDIT_MUSIC",
+})
+
+export const closeModalEditMusic = () => ({
+    type: "CLOSE_MODAL_EDIT_MUSIC",
+})

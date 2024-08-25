@@ -1,5 +1,5 @@
 import { loadPl } from "../actions/loadPl";
-import { closeAlbumMenuContext, closePlaylistMenuContext } from "../actions/menuContext";
+import { closePlaylistMenuContext } from "../actions/menuContext";
 import { getOneAlbum } from "../services/album";
 import { getPlaylist } from "../services/playlist";
 import { getSinger } from "../services/singer";
@@ -16,6 +16,9 @@ export const handleAddToWaitingList = async (data, dispatch, messageApi, type) =
             result = await getOneAlbum(data.slug)
             result = result.data.infoMusic
             break;
+        case "MUSIC":
+            result = [data]
+            break
         default:
             break;
     }
@@ -56,9 +59,14 @@ export const handleReplaceWaitingList = async (data, dispatch, messageApi, type)
         case "SINGER":
             result = await getSinger(data.slug)
             result = result.data.infoMusic
+            break
+        case "MUSIC":
+            result = [data]
+            break
         default:
             break;
     }
+    
     result.forEach(element => {
         element.key = element._id
         delete element._id

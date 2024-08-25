@@ -5,11 +5,9 @@ import { getOneMusic } from '../../services/music';
 import './Playlist.css';
 import parseLyrics from '../../helpers/parseLyrics';
 import MusicInPlContextMenu from '../../components/ContextMenu/MusicInPl';
-import { getListPlaylist } from '../../services/playlist';
 
 export default function Playlist() {
     const [playlist, setPlaylist] = useState([]);
-    const [playlistProp, setPlaylistProp] = useState([]);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentMusic, setCurrentMusic] = useState(null);
     const [currentTime, setCurrentTime] = useState(0);
@@ -26,18 +24,7 @@ export default function Playlist() {
     const user = useSelector(state => state.loginReducer.value);
     const loadPll = useSelector(state => state.loadPlReducer);
     const value = useSelector(state => state.musicInPlContextMenuReducer)
-    const userId = useSelector(state => state.loginReducer.value._id)
-    
-    const {playlistChange: reloadPlaylist} = useSelector(state => state.reloadReducer)  
-
-    useEffect(() => {
-        const fetchPlaylist = async () => {
-            const result = await getListPlaylist(userId)
-            setPlaylistProp(result.data)
-        }
-        fetchPlaylist()
-        // eslint-disable-next-line
-    }, [reloadPlaylist])
+    const playlistProp = useSelector(state => state.savePlReducer)
 
     useEffect(() => {
         if (audioRef.current) {

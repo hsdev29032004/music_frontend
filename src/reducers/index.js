@@ -1,18 +1,21 @@
 import { combineReducers } from "redux";
 import { loginReducer } from "./login";
 import { modalReducer } from "./modal";
-import { playlistContextMenuReducer, musicInPlContextMenuReducer, AlbumContextMenuReducer } from "./menuContext";
+import { playlistContextMenuReducer, musicInPlContextMenuReducer, albumContextMenuReducer, musicContextMenuReducer } from "./menuContext";
 import { loadPlReducer } from "./loadPl";
 import { reloadReducer } from "./reload";
+import { savePlReducer } from "./savePl";
 
 const allReducers = combineReducers({
     loginReducer,
     modalReducer,
     playlistContextMenuReducer,
     musicInPlContextMenuReducer,
-    AlbumContextMenuReducer,
+    albumContextMenuReducer,
+    musicContextMenuReducer,
     loadPlReducer,
-    reloadReducer
+    reloadReducer,
+    savePlReducer
 });
 
 export default allReducers;

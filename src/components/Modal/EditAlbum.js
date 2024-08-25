@@ -13,7 +13,7 @@ export default function EditAlbum({ messageApi }) {
     const dispatch = useDispatch()
     const [file, setFile] = useState(null)    
     
-    const album = useSelector(state => state.AlbumContextMenuReducer).data.album
+    const album = useSelector(state => state.albumContextMenuReducer.data?.album)    
     
     useEffect(() => {
         return () => {
