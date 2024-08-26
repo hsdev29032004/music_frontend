@@ -1,14 +1,19 @@
 import { Link } from 'react-router-dom';
 import "./Music.css";
-import { Fragment, useRef } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { likeMusic } from '../../services/favorite';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { openMusicMenuContext } from '../../actions/menuContext';
 import { handleReplaceWaitingList } from '../../helpers/playlist';
+import { formatNumber } from "../../helpers/format"
 
-export default function Music({ data, likedMusic, userId, showMore }) {    
-    const dispatch = useDispatch()    
+export default function Music({ data, likedMusic, userId, showMore, showLike }) {   
+    const dispatch = useDispatch()
+    const [quantityLike, setQuantityLike] = useState(data.quantityLike)
+    const [isLiked, setIsLiked] = useState(likedMusic.includes(data._id))
+    console.log(isLiked, quantityLike);
+    
 
     const [messageApi, contextHolder] = message.useMessage();
     const heartRef = useRef(null);
@@ -32,9 +37,13 @@ export default function Music({ data, likedMusic, userId, showMore }) {
         e.stopPropagation()
         const result = await likeMusic(data._id, userId)
         if (result.msg === "Thích bài hát thành công.") {
-            heartRef.current.classList.add("liked");
+            heartRef.current?.classList.add("liked");
+            setIsLiked(true)
+            setQuantityLike(prev => prev + 1)
         } else if (result.msg === "Bỏ thích bài hát thành công.") {
-            heartRef.current.classList.remove("liked");
+            heartRef.current?.classList.remove("liked");
+            setIsLiked(false)
+            setQuantityLike(prev => prev - 1)
         }
         messageApi[result.status](result.msg)
     }
@@ -72,6 +81,14 @@ export default function Music({ data, likedMusic, userId, showMore }) {
                     <i onClick={(event) => handleOpenMenu(event, data)} className="fa-solid fa-ellipsis ml-2"></i>
                 </div>
                 {showMore && <i onClick={(event) => handleOpenMenu(event, data)} className="fa-solid fa-ellipsis ml-2 hover-none" style={{padding: "5px"}}></i>}
+                {showLike && (
+                    <div className='dflex-a-center hover-none' style={{padding: "5px"}}>
+                        <div className='show-like'>
+                            <i className={`fa-duotone fa-solid fa-heart ${isLiked ? 'liked' : ''}`}></i>
+                            {formatNumber(quantityLike)}
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

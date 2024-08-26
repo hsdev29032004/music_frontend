@@ -117,3 +117,8 @@ p.ellipsis{
 .fa-triangle{
     transform: rotate(90deg);
 }
+
+.show-like{
+    font-size: 13px;
+    color: #717171;
+}

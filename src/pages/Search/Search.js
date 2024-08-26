@@ -10,7 +10,7 @@ import { getListSinger } from "../../services/singer";
 import Singer from "../../components/Singer/Singer";
 import { getListMusicType } from "../../services/musicType";
 
-export default function Search(){
+export default function Search({title}){
     const [music, setMusic] = useState([])
     const [album, setAlbum] = useState([])
     const [singer, setSinger] = useState([])
@@ -21,6 +21,11 @@ export default function Search(){
     const [messageApi, contextHolder] = message.useMessage();
     
     const user = useSelector(state => state.loginReducer).value
+
+    useEffect(() => {
+        document.title = title
+        // eslint-disable-next-line
+    }, [])
 
     useEffect(() => {
         const inputSearch = document.querySelector("#input-search")
@@ -49,7 +54,6 @@ export default function Search(){
         const fetchSinger = async () => {
             const result = await getListSinger(keyword)
             setSinger(result.data);
-            console.log(result.data);
         }
         fetchSinger()
     }, [keyword])

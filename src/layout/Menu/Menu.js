@@ -6,8 +6,7 @@
     import './Menu.css';
     import { openModalCreatePlaylist } from '../../actions/modal';
     import { openPlaylistMenuContext } from '../../actions/menuContext';
-import { savePl } from '../../actions/savePl';
-    // import { savePl } from '../../actions/playlist';
+    import { savePl } from '../../actions/savePl';
 
     export default function Menu() {
         const [collapse, setCollapse] = useState(window.matchMedia('(max-width: 1125px)').matches);
@@ -19,9 +18,7 @@ import { savePl } from '../../actions/savePl';
         const imgRef = useRef(null);
         const secondaryRef = useRef(null);    
 
-        const { value } = useSelector(state => state.loginReducer);
-        // const playlist = useSelector(state => state.savePlReducer)
-        
+        const { value } = useSelector(state => state.loginReducer);        
         const {playlistChange: reloadPlaylist} = useSelector(state => state.reloadReducer)        
 
         const handleOpenMenu = (event, playlist) => {                    
@@ -110,6 +107,8 @@ import { savePl } from '../../actions/savePl';
 
             if (value?._id) {
                 fetchPlaylist();
+            }else{
+                setPlaylist([])
             }
             // eslint-disable-next-line
         }, [value, reloadPlaylist]);
@@ -219,12 +218,13 @@ import { savePl } from '../../actions/savePl';
                             </div>
                         )}
                         <ul>
-                            {playlist && playlist.length > 0 && playlist.map((value, key) => (
+                            {playlist && playlist.length > 0 ? playlist.map((value, key) => (
                                 <li key={key} className="text-gray d-flex-spacebetween playlist-item">
                                     <p style={{padding: "5px"}}>{value.name}</p>
                                     <i onClick={(event) => handleOpenMenu(event, value)} className="fa-solid fa-ellipsis icon-more"></i>
                                 </li>
-                            ))}
+                            )) : <></>
+                            }
                         </ul>
                     </div>
 

@@ -41,3 +41,9 @@ export const deleteFromPlaylist = async (data) => {
     const result = await response.json()
     return result
 }
+
+export const getMusicRank = async () => {
+    const response = await _get(`/music/get/rank`)
+    const result = await response.json()
+    return result
+}

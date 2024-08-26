@@ -6,15 +6,16 @@ import { getSinger } from "../services/singer";
 import {randomId} from "./random"
 
 export const handleAddToWaitingList = async (data, dispatch, messageApi, type) => {
-    let result
+    try {
+        let result
     switch (type) {
         case "PLAYLIST":
             result = await getPlaylist(data.slug);
-            result = result.data.music
+            result = result.data?.music
             break;
         case "ALBUM":
             result = await getOneAlbum(data.slug)
-            result = result.data.infoMusic
+            result = result.data?.infoMusic
             break;
         case "MUSIC":
             result = [data]
@@ -22,7 +23,7 @@ export const handleAddToWaitingList = async (data, dispatch, messageApi, type) =
         default:
             break;
     }
-    result.forEach(element => {
+    result?.forEach(element => {
         element.key = element._id
         delete element._id
         element.id = randomId(10)
@@ -43,6 +44,9 @@ export const handleAddToWaitingList = async (data, dispatch, messageApi, type) =
     }else{
         messageApi.error("Thư mục rỗng", 1.5)
     }
+    } catch (error) {
+        messageApi.error("Lỗi hệ thống")
+    }
 };
 
 export const handleReplaceWaitingList = async (data, dispatch, messageApi, type) => {
@@ -50,15 +54,15 @@ export const handleReplaceWaitingList = async (data, dispatch, messageApi, type)
     switch (type) {
         case "PLAYLIST":
             result = await getPlaylist(data.slug);
-            result = result.data.music
+            result = result.data?.music
             break;
         case "ALBUM":
             result = await getOneAlbum(data.slug)
-            result = result.data.infoMusic
+            result = result.data?.infoMusic
             break;
         case "SINGER":
             result = await getSinger(data.slug)
-            result = result.data.infoMusic
+            result = result.data?.infoMusic
             break
         case "MUSIC":
             result = [data]
@@ -67,7 +71,7 @@ export const handleReplaceWaitingList = async (data, dispatch, messageApi, type)
             break;
     }
     
-    result.forEach(element => {
+    result?.forEach(element => {
         element.key = element._id
         delete element._id
         element.id = randomId(10)

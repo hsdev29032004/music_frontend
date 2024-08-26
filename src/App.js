@@ -33,9 +33,9 @@ function App() {
               <Route path='/config' element={<Config title="Meelow - Cài đặt website"/>}></Route>
               <Route path='/dashboard' element={<Dashboard title="Meelow - Tổng quan"/>}></Route>
             </Route>
+            <Route path='*' element={<NotFound title="Meelow - 404"/>} />
           </Route>
         </Route>
-        <Route path='*' element={<NotFound />} />
     </Routes>
   );
 }
