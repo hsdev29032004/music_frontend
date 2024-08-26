@@ -75,6 +75,7 @@ export default function Header() {
                             onKeyDown={(e) => handleSearch(e)} 
                             className="input-bora" 
                             placeholder="Tìm kiếm bài hát, ca sĩ, lời bài hát, ..." 
+                            autoComplete="off"
                         />
                     </Col>
                     <Col xxl={15} xl={15} lg={15} md={15} sm={15} xs={15} style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>

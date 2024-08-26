@@ -24,7 +24,7 @@ export default function Playlist() {
     const user = useSelector(state => state.loginReducer.value);
     const loadPll = useSelector(state => state.loadPlReducer);
     const value = useSelector(state => state.musicInPlContextMenuReducer)
-    const playlistProp = useSelector(state => state.savePlReducer)
+    const playlistProp = useSelector(state => state.savePlReducer)    
 
     useEffect(() => {
         if (audioRef.current) {

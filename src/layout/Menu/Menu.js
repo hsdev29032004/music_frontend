@@ -111,7 +111,7 @@
                 setPlaylist([])
             }
             // eslint-disable-next-line
-        }, [value, reloadPlaylist]);
+        }, [value?._id, reloadPlaylist]);
 
         useEffect(() => {
             const listItems = document.querySelectorAll(".menu-content ul li");

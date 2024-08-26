@@ -9,7 +9,7 @@ import { formatNumber } from "../../helpers/format"
 export default function Singer({value, messageApi, user}){    
     const dispatch = useDispatch()
     const [quantitySubcriber, setQuantitySubcriber] = useState(value.quantitySubcriber)
-    const [isSubscribed, setIsSubscribed] = useState(user.subcribedSinger.includes(value._id))
+    const [isSubscribed, setIsSubscribed] = useState(user?.subcribedSinger.some(item => item._id === value._id))
     
     const handleSubcribe = async () => {
         const result = await subcribeSinger(value._id, user._id)
@@ -35,7 +35,7 @@ export default function Singer({value, messageApi, user}){
                 </div>
             </div>
             <div className="mt-2 text-center">
-                <Link to={`singer/${value.slug}`} className="ellipsis">
+                <Link to={`/singer/${value.slug}`} className="ellipsis">
                     <h3 className="album-link">{value.fullName}</h3>
                 </Link>
                 <div style={{fontSize: "13px", color: "#717171", fontWeight: 600}}>{formatNumber(quantitySubcriber)} quan tâm</div>

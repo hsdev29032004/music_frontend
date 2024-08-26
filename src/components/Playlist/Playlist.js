@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "./Album.css"
 import { handleReplaceWaitingList } from "../../helpers/playlist";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";

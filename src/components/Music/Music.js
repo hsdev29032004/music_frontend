@@ -11,9 +11,7 @@ import { formatNumber } from "../../helpers/format"
 export default function Music({ data, likedMusic, userId, showMore, showLike }) {   
     const dispatch = useDispatch()
     const [quantityLike, setQuantityLike] = useState(data.quantityLike)
-    const [isLiked, setIsLiked] = useState(likedMusic.includes(data._id))
-    console.log(isLiked, quantityLike);
-    
+    const [isLiked, setIsLiked] = useState(likedMusic?.some(item => item._id === data._id))    
 
     const [messageApi, contextHolder] = message.useMessage();
     const heartRef = useRef(null);
@@ -77,7 +75,7 @@ export default function Music({ data, likedMusic, userId, showMore, showLike }) 
                 </div>
                 <div className="icon-container">
                     <i onClick={() => handleReplaceWaitingList(data, dispatch, messageApi, "MUSIC")} className="fa-solid fa-triangle"></i>
-                    <i ref={heartRef} onClick={handleLike} className={`fa-duotone fa-solid fa-heart ${likedMusic?.includes(data._id) ? 'liked' : ''}`}></i>
+                    <i ref={heartRef} onClick={handleLike} className={`fa-duotone fa-solid fa-heart ${likedMusic?.some(item => item._id === data._id) ? 'liked' : ''}`}></i>
                     <i onClick={(event) => handleOpenMenu(event, data)} className="fa-solid fa-ellipsis ml-2"></i>
                 </div>
                 {showMore && <i onClick={(event) => handleOpenMenu(event, data)} className="fa-solid fa-ellipsis ml-2 hover-none" style={{padding: "5px"}}></i>}

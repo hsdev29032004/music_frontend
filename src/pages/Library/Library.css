@@ -1,0 +1,11 @@
+.ant-tabs-tab-btn{
+    color: white !important;
+}
+
+div[aria-selected="true"]{
+    color: #1677ff !important;
+}
+
+.ant-tabs-nav::before{
+    border-bottom: 1px solid #292929 !important;
+}
