@@ -1,35 +1,22 @@
 import { useEffect, useState } from 'react';
+import './Modal.css';
 import { Form, Input, Select } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModalEditAlbum } from '../../actions/modal';
+import { useDispatch, } from 'react-redux';
+import { closeModalCreateAlbum } from '../../actions/modal';
 import { useForm } from 'antd/es/form/Form';
-import { editAlbum } from '../../services/album';
+import { createAlbum } from '../../services/album';
 import { reloadAlbum } from '../../actions/reload';
 
-export default function EditAlbum({ messageApi }) {    
+export default function CreateAlbum({ messageApi, singer: singerProp }) {    
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = useForm()
     const dispatch = useDispatch()
     const [file, setFile] = useState(null)    
     
-    const album = useSelector(state => state.albumContextMenuReducer.data?.album)    
-    
-    useEffect(() => {
-        return () => {
-            if (file && typeof file === 'string') {
-                URL.revokeObjectURL(file);
-            }            
-        };
-    }, [file]);
-
-    
     useEffect(() => {        
-        if (album && form) {
-            form.setFieldsValue({
-                name: album?.name,
-                singerId: album.singerId?._id
-            });
-        }
+        form.setFieldsValue({
+            singerId: singerProp?._id
+        });
         // eslint-disable-next-line
     }, [])
 
@@ -38,23 +25,28 @@ export default function EditAlbum({ messageApi }) {
 
         setTimeout(async () => {
             try {
-                const values = await form.validateFields();
+                let values
+                try {
+                    values = await form.validateFields();
+                } catch (error) {
+                    return messageApi.error("Chưa nhập đủ trường")
+                }                
     
                 const formData = new FormData();
                 formData.append('name', values.name);
+                formData.append('singerId', values.singerId);
                 if (file) {
                     formData.append('avatar', file);
-                }            
+                }else{
+                    return messageApi.error("Chưa tải hình ảnh")
+                }
     
-                const result = await editAlbum(album?._id, formData);
+                const result = await createAlbum(formData);
                 if (result.status === "success") {
                     form.resetFields();
-                    form.setFieldsValue({
-                        name: result.data.name || album?.name,
-                    });
                     setFile(null)
                     dispatch(reloadAlbum())
-                    dispatch(closeModalEditAlbum())                    
+                    dispatch(closeModalCreateAlbum())                    
                     messageApi.success(result.msg);                    
                 } else {
                     messageApi.error(result.msg);
@@ -69,7 +61,7 @@ export default function EditAlbum({ messageApi }) {
 
     const handleCancel = async () => {
         setFile(null);
-        dispatch(closeModalEditAlbum())
+        dispatch(closeModalCreateAlbum())
     };
 
     const handleFileChange = (e) => {
@@ -78,15 +70,16 @@ export default function EditAlbum({ messageApi }) {
             setFile(file);
         }
     };
+    
     return (
         <>
             <div className="modal-overlay">
                 <div className="modal-content">
-                    <h2 className="modal-title">Chỉnh sửa album</h2>
+                    <h2 className="modal-title">Tạo mới album</h2>
                     <div className='dflex-j-center'>
                         <div className="avatar-container">
                             <img
-                                src={file ? URL.createObjectURL(file) : album?.avatar || "https://res.cloudinary.com/dfjft1zvv/image/upload/v1722247373/orrqmjzdwcrwlmz5k9ti.jpg"}
+                                src={file ? URL.createObjectURL(file) : "https://res.cloudinary.com/dfjft1zvv/image/upload/v1722247373/orrqmjzdwcrwlmz5k9ti.jpg"}
                                 alt="Avatar"
                                 className="avatar-img"
                                 onClick={() => document.getElementById('avatar-upload').click()}
@@ -105,10 +98,6 @@ export default function EditAlbum({ messageApi }) {
                         className="modal-body"
                         autoComplete="off"
                         layout="vertical"
-                        initialValues={{
-                            name: album?.name,
-                            singerId: album.singerId?._id
-                        }}
                     >
                         <Form.Item
                             label="Album"
@@ -126,21 +115,11 @@ export default function EditAlbum({ messageApi }) {
                                 dropdownStyle={{backgroundColor: "#454545"}}
                                 disabled
                             >
-                                <Select.Option value={album.singerId?._id}>
-                                    {album.singerId?.fullName}
+                                <Select.Option value={singerProp?._id}>
+                                    {singerProp?.fullName}
                                 </Select.Option>
                             </Select>
                         </Form.Item>
-                        {/* <Form.Item
-                            label="Ca sĩ góp mặt"
-                            name="otherSingersId"
-                        >
-                            <Select 
-                                className='select-bg'
-                                multiple
-                                dropdownStyle={{backgroundColor: "#454545"}}
-                            />
-                        </Form.Item> */}
                     </Form>
                     <div className="modal-footer">
                         <button className="btn-close-modal" onClick={handleCancel}>
@@ -151,7 +130,7 @@ export default function EditAlbum({ messageApi }) {
                             onClick={handleOk}
                             disabled={confirmLoading}
                         >
-                            {confirmLoading ? 'Loading...' : 'Chỉnh sửa'}
+                            {confirmLoading ? 'Loading...' : 'Tạo mới'}
                         </button>
                     </div>
                     <span onClick={handleCancel} style={{ position: "absolute", top: "0px", right: "7px", cursor: "pointer" }}>

@@ -150,7 +150,12 @@ export default function Library({ title }) {
                                 </div>
                             </div>
                         ) : (
-                            <Empty description="Không có playlist" />
+                            <Empty description={
+                                <div>
+                                    Không có playlist
+                                    <span onClick={() => dispatch(openModalCreatePlaylist())} style={{color: "blue", cursor: "pointer"}}> tạo ngay</span>
+                                </div>} 
+                            />
                         )
                     }
                 ]}

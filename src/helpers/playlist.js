@@ -77,7 +77,7 @@ export const handleReplaceWaitingList = async (data, dispatch, messageApi, type)
         element.id = randomId(10)
     });    
 
-    if(result.length > 0){
+    if(result?.length > 0){
         localStorage.removeItem("currentId")
         localStorage.setItem('queuePlaylist', JSON.stringify(result));
         dispatch(closePlaylistMenuContext());

@@ -1,8 +1,4 @@
-const initialState = {
-    open: false,
-};
-
-export const modalReducer = (state = initialState, action) => {
+export const modalReducer = (state = {}, action) => {
     switch (action.type) {
         case "OPEN_MODAL_CREATE_PLAYLIST":
             return {
@@ -43,6 +39,30 @@ export const modalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isEditMusicOpen: false,
+            };
+        case "OPEN_MODAL_CREATE_MUSIC":
+            return {
+                ...state,
+                isCreateMusicOpen: true,
+                data: action.payload
+            };
+        case "CLOSE_MODAL_CREATE_MUSIC":
+            return {
+                ...state,
+                isCreateMusicOpen: false,
+                data: action.payload
+            };
+        case "OPEN_MODAL_CREATE_ALBUM":
+            return {
+                ...state,
+                isCreateAlbumOpen: true,
+                data: action.payload
+            };
+        case "CLOSE_MODAL_CREATE_ALBUM":
+            return {
+                ...state,
+                isCreateAlbumOpen: false,
+                data: action.payload
             };
         default:
             return state;

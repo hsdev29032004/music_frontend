@@ -3,13 +3,18 @@ import "./Singer.css"
 import { handleReplaceWaitingList } from "../../helpers/playlist"
 import { useDispatch } from "react-redux"
 import { subcribeSinger } from "../../services/favorite"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { formatNumber } from "../../helpers/format"
 
 export default function Singer({value, messageApi, user}){    
     const dispatch = useDispatch()
     const [quantitySubcriber, setQuantitySubcriber] = useState(value.quantitySubcriber)
-    const [isSubscribed, setIsSubscribed] = useState(user?.subcribedSinger.some(item => item._id === value._id))
+    const [isSubscribed, setIsSubscribed] = useState()
+
+    useEffect(() => {
+        setIsSubscribed(user?.subcribedSinger.some(item => item._id === value._id))
+        // eslint-disable-next-line
+    }, [user])
     
     const handleSubcribe = async () => {
         const result = await subcribeSinger(value._id, user._id)

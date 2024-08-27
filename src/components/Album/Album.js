@@ -43,10 +43,10 @@ export default function Album({value, messageApi, user}) {
                 </div>
             </div>
             <div className="mt-2 text-center">
-                <Link to={`album/${value.slug}`} className="ellipsis">
+                <Link to={`/album/${value.slug}`} className="ellipsis">
                     <h3 className='album-link'>{value.name}</h3>
                 </Link>
-                <Link to={`singer/value.singerId.slug`} className="ellipsis">
+                <Link to={`/singer/${value.singerId.slug}`} className="ellipsis">
                     {value.singerId.fullName}
                 </Link>
             </div>

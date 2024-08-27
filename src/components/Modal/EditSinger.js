@@ -1,19 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Form, Input, Select } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModalEditAlbum } from '../../actions/modal';
+import { Form, Input } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import { editAlbum } from '../../services/album';
-import { reloadAlbum } from '../../actions/reload';
+import { editSinger } from '../../services/singer';
 
-export default function EditAlbum({ messageApi }) {    
+export default function EditSinger({ messageApi, singer, setOpenModalEdit }) {    
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = useForm()
-    const dispatch = useDispatch()
     const [file, setFile] = useState(null)    
-    
-    const album = useSelector(state => state.albumContextMenuReducer.data?.album)    
-    
+        
     useEffect(() => {
         return () => {
             if (file && typeof file === 'string') {
@@ -22,39 +16,33 @@ export default function EditAlbum({ messageApi }) {
         };
     }, [file]);
 
-    
-    useEffect(() => {        
-        if (album && form) {
-            form.setFieldsValue({
-                name: album?.name,
-                singerId: album.singerId?._id
-            });
-        }
-        // eslint-disable-next-line
-    }, [])
-
     const handleOk = async () => {
         setConfirmLoading(true);
 
         setTimeout(async () => {
             try {
-                const values = await form.validateFields();
+                let values
+                try {
+                    values = await form.validateFields();
+                } catch (error) {
+                    return messageApi.error("Chưa nhập đủ trường")
+                }
+                
     
                 const formData = new FormData();
-                formData.append('name', values.name);
+                formData.append('fullName', values.fullName);
+                formData.append('description', values.description);
+
                 if (file) {
                     formData.append('avatar', file);
-                }            
+                }                            
     
-                const result = await editAlbum(album?._id, formData);
+                const result = await editSinger(singer?._id, formData);
+
                 if (result.status === "success") {
                     form.resetFields();
-                    form.setFieldsValue({
-                        name: result.data.name || album?.name,
-                    });
                     setFile(null)
-                    dispatch(reloadAlbum())
-                    dispatch(closeModalEditAlbum())                    
+                    setOpenModalEdit(false)              
                     messageApi.success(result.msg);                    
                 } else {
                     messageApi.error(result.msg);
@@ -69,7 +57,7 @@ export default function EditAlbum({ messageApi }) {
 
     const handleCancel = async () => {
         setFile(null);
-        dispatch(closeModalEditAlbum())
+        setOpenModalEdit(false)
     };
 
     const handleFileChange = (e) => {
@@ -82,11 +70,11 @@ export default function EditAlbum({ messageApi }) {
         <>
             <div className="modal-overlay">
                 <div className="modal-content">
-                    <h2 className="modal-title">Chỉnh sửa album</h2>
+                    <h2 className="modal-title">Chỉnh sửa ca sĩ</h2>
                     <div className='dflex-j-center'>
                         <div className="avatar-container">
                             <img
-                                src={file ? URL.createObjectURL(file) : album?.avatar || "https://res.cloudinary.com/dfjft1zvv/image/upload/v1722247373/orrqmjzdwcrwlmz5k9ti.jpg"}
+                                src={file ? URL.createObjectURL(file) : singer?.avatar || "https://res.cloudinary.com/dfjft1zvv/image/upload/v1722247373/orrqmjzdwcrwlmz5k9ti.jpg"}
                                 alt="Avatar"
                                 className="avatar-img"
                                 onClick={() => document.getElementById('avatar-upload').click()}
@@ -106,41 +94,23 @@ export default function EditAlbum({ messageApi }) {
                         autoComplete="off"
                         layout="vertical"
                         initialValues={{
-                            name: album?.name,
-                            singerId: album.singerId?._id
+                            fullName: singer?.fullName,
+                            description: singer?.description
                         }}
                     >
                         <Form.Item
-                            label="Album"
-                            name="name"
+                            label="Họ tên ca sĩ"
+                            name="fullName"
                             rules={[{ required: true }]}
                         >
                             <Input className='input input-modal' />
                         </Form.Item>
                         <Form.Item
-                            label="Ca sĩ"
-                            name="singerId"
+                            label="Mô tả"
+                            name="description"
                         >
-                            <Select 
-                                className='select-bg'
-                                dropdownStyle={{backgroundColor: "#454545"}}
-                                disabled
-                            >
-                                <Select.Option value={album.singerId?._id}>
-                                    {album.singerId?.fullName}
-                                </Select.Option>
-                            </Select>
+                            <Input.TextArea rows={6} />
                         </Form.Item>
-                        {/* <Form.Item
-                            label="Ca sĩ góp mặt"
-                            name="otherSingersId"
-                        >
-                            <Select 
-                                className='select-bg'
-                                multiple
-                                dropdownStyle={{backgroundColor: "#454545"}}
-                            />
-                        </Form.Item> */}
                     </Form>
                     <div className="modal-footer">
                         <button className="btn-close-modal" onClick={handleCancel}>

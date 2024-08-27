@@ -46,6 +46,7 @@ export default function AlbumContextMenu({user, menuPosition, album, messageApi}
             setConfirmLoading(false)
         }else{
             messageApi.error(result.msg)
+            setConfirmLoading(false)
         }
     }
 

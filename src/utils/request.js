@@ -9,17 +9,24 @@ export const _get = async (path) => {
 }
 
 export const _post = async (path, data) => {
-    const response = await fetch(API + path, {
+    const isFormData = data instanceof FormData;
+    const options = {
         method: "POST",
-        headers: {
+        credentials: 'include',
+        body: data
+    };
+
+    if (!isFormData) {
+        options.headers = {
             Accept: "application/json",
             "Content-Type": "application/json"
-        },
-        credentials: 'include',
-        body: JSON.stringify(data)
-    })
-    return response
-}
+        };
+        options.body = JSON.stringify(data);
+    }
+
+    const response = await fetch(API + path, options);
+    return response;
+};
 
 export const _patch = async (path, data) => {
     const isFormData = data instanceof FormData;

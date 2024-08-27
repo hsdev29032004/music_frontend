@@ -2,7 +2,7 @@
     color: white !important;
 }
 
-div[aria-selected="true"]{
+.ant-tabs-tab div[aria-selected="true"]{
     color: #1677ff !important;
 }
 

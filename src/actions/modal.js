@@ -29,3 +29,23 @@ export const openModalEditMusic = () => ({
 export const closeModalEditMusic = () => ({
     type: "CLOSE_MODAL_EDIT_MUSIC",
 })
+
+export const openModalCreateMusic = (singer) => ({
+    type: "OPEN_MODAL_CREATE_MUSIC",
+    payload: singer
+})
+
+export const closeModalCreateMusic = () => ({
+    type: "CLOSE_MODAL_CREATE_MUSIC",
+    playload: null
+})
+
+export const openModalCreateAlbum = (singer) => ({
+    type: "OPEN_MODAL_CREATE_ALBUM",
+    payload: singer
+})
+
+export const closeModalCreateAlbum = () => ({
+    type: "CLOSE_MODAL_CREATE_ALBUM",
+    playload: null
+})

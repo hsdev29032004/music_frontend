@@ -1,4 +1,4 @@
-import { _get, _post } from "../utils/request"
+import { _get, _patch, _post } from "../utils/request"
 
 export const getListSinger = async (keyword = "") => {
     const response = await _get(`/singer?keyword=${keyword}`)
@@ -25,7 +25,7 @@ export const createSinger = async (data) => {
 }
 
 export const editSinger = async (id, data) => {
-    const response = await _post(`/singer/edit/${id}`, data)
+    const response = await _patch(`/singer/edit/${id}`, data)
     const result = await response.json()
     return result
 }

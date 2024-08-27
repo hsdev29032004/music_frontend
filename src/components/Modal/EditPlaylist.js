@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import './Modal.css';
 import { message } from 'antd';
 import { editPlaylist } from "../../services/playlist"
 import { useDispatch, useSelector } from 'react-redux';

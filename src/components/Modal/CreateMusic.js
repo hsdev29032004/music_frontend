@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button, Col, Form, Input, Row, Select } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModalEditMusic } from '../../actions/modal';
+import { useDispatch } from 'react-redux';
+import { closeModalCreateMusic } from '../../actions/modal';
 import { useForm } from 'antd/es/form/Form';
-import { editMusic, getLyrics, getOneMusic } from '../../services/music';
+import { createMusic, getLyrics } from '../../services/music';
 import { getAlbumsBySingerId, getListSinger } from '../../services/singer';
 
 function CustomLabel({ messageApi, name, form }) {
@@ -44,11 +44,10 @@ function CustomLabel({ messageApi, name, form }) {
     )
 }
 
-export default function EditMusic({ messageApi }) {
+export default function CreateMusic({ messageApi, singer: singerProp }) {
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [file, setFile] = useState(null)
     const [mp3, setMp3] = useState(null)
-    const [infoMusic, setInfoMusic] = useState({})
     const [singer, setSinger] = useState([])
     const [albums, setAlbums] = useState([])
     
@@ -57,32 +56,12 @@ export default function EditMusic({ messageApi }) {
     const [form] = useForm()
     const dispatch = useDispatch()
 
-    const music = useSelector(state => state.musicContextMenuReducer.data?.music)    
-    
-    useEffect(() => {
-        const fetchMusic = async () => {
-            const result = await getOneMusic(music.slug)            
-            setInfoMusic(result.data)
-        }
-        fetchMusic()
-        // eslint-disable-next-line
-    }, [])
-
     useEffect(() => {
         const fetchSinger = async () => {
             const result = await getListSinger()  
             setSinger(result.data)
         }
         fetchSinger()
-        // eslint-disable-next-line
-    }, [])
-
-    useEffect(() => {
-        const fetchAlbums = async () => {
-            const result = await getAlbumsBySingerId(music.singerId?.slug)            
-            setAlbums(result.data)
-        }
-        fetchAlbums()
         // eslint-disable-next-line
     }, [])
 
@@ -95,61 +74,66 @@ export default function EditMusic({ messageApi }) {
     }, [file]);
 
     useEffect(() => {
-        if (infoMusic) {
-            form.setFieldsValue({
-                ...infoMusic,
-                singerId: infoMusic.singerId?._id,
-                otherSingersId: infoMusic.otherSingersId?.map(singer => singer._id)
-            });
+        const fetchAlbum = async () => {
+            const result = await getAlbumsBySingerId(singerProp?.slug)
+            setAlbums(result.data)
         }
-        // eslint-disable-next-line
-    }, [infoMusic]);
 
-    const handleOk = async () => {
+        fetchAlbum()
+        // eslint-disable-next-line
+    }, [])    
+
+    const handleOk = () => {
         setConfirmLoading(true);
 
         setTimeout(async () => {
             try {
-                const values = await form.validateFields()
-                const formData = new FormData();                
+                let values
+                try {
+                    values = await form.validateFields()                    
+                } catch (error) {
+                    return messageApi.error("Chưa nhập đủ trường")
+                }
 
+                const formData = new FormData();
+                
                 for (const key in values) {
-                    if (values.hasOwnProperty(key) && values[key]) {
+                    if (values[key]) {
                         formData.append(key, values[key]);
                     }
                 }
-
                 if (file) {
                     formData.append('avatar', file);
+                }else{
+                    return messageApi.error("Chưa tải ảnh bài hát")
                 }
                 if(mp3) {
                     formData.append("urlMp3", mp3)
+                }else{
+                    return messageApi.error("Chưa tải file nhạc")
                 }
 
-                const result = await editMusic(music?._id, formData);
+                const result = await createMusic(formData);
                 if (result.status === "success") {
                     form.resetFields();
-                    form.setFieldsValue({
-                        name: result.data || infoMusic,
-                    });
                     setFile(null)
                     // dispatch(reloadAlbum())
-                    dispatch(closeModalEditMusic())
+                    dispatch(closeModalCreateMusic())
                     messageApi.success(result.msg);
                 } else {
-                    messageApi.error(result.msg);
+                    messageApi.error(result.msg);                    
                 }
             } catch (error) {
                 messageApi.error(error);
             } finally {
                 setConfirmLoading(false);
             }
-        }, 1000);
-    };    
+        }, 1000)
+    }
 
     const handleCancel = async () => {
         setFile(null);
-        dispatch(closeModalEditMusic())
+        dispatch(closeModalCreateMusic())
     };
 
     const handleFileChange = (e) => {
@@ -164,17 +148,17 @@ export default function EditMusic({ messageApi }) {
         if(file){
             setMp3(file)
         }
-    }
+    }    
 
     return (
         <>
             <div className="modal-overlay">
                 <div className="modal-content" style={{ width: "1000px" }}>
-                    <h2 className="modal-title">Chỉnh sửa bài hát</h2>
+                    <h2 className="modal-title">Tạo mới bài hát</h2>
                     <div className='dflex-aj-center'>
                         <div className="avatar-container">
                             <img
-                                src={file ? URL.createObjectURL(file) : music?.avatar || "https://res.cloudinary.com/dfjft1zvv/image/upload/v1722247373/orrqmjzdwcrwlmz5k9ti.jpg"}
+                                src={file ? URL.createObjectURL(file) : "https://res.cloudinary.com/dfjft1zvv/image/upload/v1722247373/orrqmjzdwcrwlmz5k9ti.jpg"}
                                 alt="Avatar"
                                 className="avatar-img"
                                 onClick={() => document.getElementById('avatar-upload').click()}
@@ -197,7 +181,7 @@ export default function EditMusic({ messageApi }) {
                             />
                             <audio 
                                 controls 
-                                src={mp3 ? URL.createObjectURL(mp3) : infoMusic.urlMp3}
+                                src={mp3 ? URL.createObjectURL(mp3) : ""}
                             />
                             <Button 
                                 onClick={() => document.getElementById("mp3-upload").click()}
@@ -212,6 +196,7 @@ export default function EditMusic({ messageApi }) {
                         className="modal-body"
                         autoComplete="off"
                         layout="vertical"
+                        initialValues={{singerId: singerProp?._id, premium: false}}
                     >
                         <Row gutter={20}>
                             <Col xxl={12} xl={12} lg={12} md={12} sm={24} span={24}>
@@ -244,11 +229,10 @@ export default function EditMusic({ messageApi }) {
                                     <Select
                                         className='select-bg'
                                         dropdownStyle={{ backgroundColor: "#454545" }}
-                                        placeholder="Chọn ca sĩ"
                                         disabled
                                     >
-                                        <Select.Option value={music.singerId?._id}>
-                                            {music.singerId?.fullName}
+                                        <Select.Option value={singerProp._id}>
+                                            {singerProp.fullName}
                                         </Select.Option>
                                     </Select>
                                 </Form.Item>
@@ -320,7 +304,7 @@ export default function EditMusic({ messageApi }) {
                             onClick={handleOk}
                             disabled={confirmLoading}
                         >
-                            {confirmLoading ? 'Loading...' : 'Chỉnh sửa'}
+                            {confirmLoading ? 'Loading...' : 'Tạo mới'}
                         </button>
                     </div>
                     <span onClick={handleCancel} style={{ position: "absolute", top: "0px", right: "7px", cursor: "pointer" }}>

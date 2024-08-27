@@ -12,6 +12,12 @@ export const getOneMusic = async (slug) => {
     return result
 }
 
+export const createMusic = async (data) => {
+    const response = await _post(`/music/create`, data)
+    const result = await response.json()
+    return result
+}
+
 export const deleteOneMusic = async (id) => {
     const response = await _patch(`/music/delete/${id}`)
     const result = await response.json()

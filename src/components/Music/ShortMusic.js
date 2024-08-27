@@ -56,7 +56,7 @@ export default function ShortMusic({ data, likedMusic, userId, active, onClick, 
                         <img src={data.avatar} alt="" />
                     </div>
                     <div className="ml-2">
-                        <Link to={data.slug} className="ellipsis" onClick={handleClickLink}>
+                        <Link to={`/music/${data.slug}`} className="ellipsis" onClick={handleClickLink}>
                             {data.premium ? <span className='tag-premium'>Premium</span> : null}
                             <h3 className='song-link'>{data.name}</h3>
                         </Link>
