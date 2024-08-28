@@ -11,3 +11,9 @@ export const editSystem = async (data) => {
     const result = await response.json()
     return result
 }
+
+export const getInfo = async () => {
+    const response = await _get("/system/info")
+    const result = await response.json()
+    return result
+}
