@@ -44,7 +44,7 @@ function CustomLabel({ messageApi, name, form }) {
     )
 }
 
-export default function CreateMusic({ messageApi, singer: singerProp }) {
+export default function CreateMusic({ messageApi, singer: singerProp }) {    
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [file, setFile] = useState(null)
     const [mp3, setMp3] = useState(null)
@@ -215,7 +215,7 @@ export default function CreateMusic({ messageApi, singer: singerProp }) {
                                         className='select-bg'
                                         dropdownStyle={{ backgroundColor: "#454545" }}
                                     >
-                                        {albums.map((a) => (
+                                        {albums?.map((a) => (
                                             <Select.Option key={a._id} value={a._id}>
                                                 {a.name}
                                             </Select.Option>

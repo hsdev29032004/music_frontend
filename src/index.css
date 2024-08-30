@@ -283,3 +283,31 @@ ul li{
 .border-white{
   border: 1px solid white;
 }
+
+.comment{
+  overflow: hidden;
+  flex: 1;
+}
+
+.comment h5{
+  color: #717171;
+  font-size: 15px;
+  font-weight: 700; 
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+.comment p{
+  color: #717171;
+  font-size: 13px;
+  font-weight: 600; 
+  width: 100%;
+}
+
+.action-icon{
+  padding: 3px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}

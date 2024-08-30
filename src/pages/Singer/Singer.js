@@ -130,7 +130,7 @@ export default function Singer({title}) {
                                 Bài hát
                                 {user?.level === 3 && 
                                     <i 
-                                        onClick={() => dispatch(openModalCreateMusic({fullName: singer.fullName, _id: singer._id}))}
+                                        onClick={() => dispatch(openModalCreateMusic({fullName: singer.fullName, _id: singer._id, slug: singer.slug}))}
                                         className="fa-sharp fa-solid fa-plus ml-2 dflex-a-center" 
                                         style={{fontSize: "11px", padding: "3px 5px", borderRadius: "50%", cursor: "pointer", backgroundColor: "#984bdc"}}
                                     >

@@ -58,13 +58,13 @@
     text-decoration: none;
 }
 
-.music-playlist-item a {
+a.singer-link {
     font-weight: 600;
     font-size: 13px;
     color: #717171;
 }
 
-.music-playlist-item a:hover {
+a.singer-link:hover {
     color: #C273ED;
 }
 

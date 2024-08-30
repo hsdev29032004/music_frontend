@@ -1,0 +1,13 @@
+.inner-comment .inner-image{
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+}
+
+.inner-comment{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
