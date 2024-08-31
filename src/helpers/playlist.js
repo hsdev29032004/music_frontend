@@ -82,6 +82,7 @@ export const handleReplaceWaitingList = async (data, dispatch, messageApi, type)
         localStorage.setItem('queuePlaylist', JSON.stringify(result));
         dispatch(closePlaylistMenuContext());
         dispatch(loadPl());
+        messageApi.success("Phát thành công")
     }else{
         messageApi.error("Thư mục rỗng", 1.5)
     }

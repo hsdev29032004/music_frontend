@@ -34,16 +34,15 @@ export default function Music({ data, likedMusic, userId, showMore, showLike }) 
     const handleLike = async (e) => {
         e.stopPropagation()
         const result = await likeMusic(data._id, userId)
-        if (result.msg === "Thích bài hát thành công.") {
+        if (result.status === "like") {
             heartRef.current?.classList.add("liked");
             setIsLiked(true)
             setQuantityLike(prev => prev + 1)
-        } else if (result.msg === "Bỏ thích bài hát thành công.") {
+        } else if (result.status === "unlike") {
             heartRef.current?.classList.remove("liked");
             setIsLiked(false)
             setQuantityLike(prev => prev - 1)
         }
-        messageApi[result.status](result.msg)
     }
 
     const handleOpenMenu = (event, data) => {

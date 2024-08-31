@@ -47,7 +47,7 @@ export default function Singer({title}) {
 
         fetchSinger()
         // eslint-disable-next-line
-    }, [])
+    }, [slug])
 
     const handleSubcribe = async () => {
         const result = await subcribeSinger(singer?._id, user?._id)

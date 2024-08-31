@@ -44,14 +44,14 @@ export default function MusicInPlContextMenu({ menuPosition, musicKey, onNext, p
     };
 
     const handleDeleteMIP = () => {
-        if((JSON.parse(localStorage.getItem("queuePlaylist")).length > 1)){
+        if((JSON.parse(localStorage.getItem("queuePlaylist"))?.length > 1)){
             if(musicKey === localStorage.getItem("currentId")){
                 onNext()
             }
             const savedPlaylist = JSON.parse(localStorage.getItem("queuePlaylist"))
             const filterMIP = savedPlaylist.filter(music => music.id !== musicKey)
             localStorage.setItem("queuePlaylist", JSON.stringify(filterMIP)) 
-        }else if((JSON.parse(localStorage.getItem("queuePlaylist")).length) === 1){                        
+        }else if((JSON.parse(localStorage.getItem("queuePlaylist"))?.length) === 1){                        
             localStorage.removeItem("queuePlaylist")
             localStorage.removeItem("currentId")
         }
@@ -111,7 +111,7 @@ export default function MusicInPlContextMenu({ menuPosition, musicKey, onNext, p
                                     <p>Tạo playlist mới</p>
                                 </div>
                                 <ul>
-                                    {playlist && playlist.length > 0 ? (
+                                    {playlist && playlist?.length > 0 ? (
                                         playlist.map((value, key) => (
                                             <li key={key} onClick={() => handleAddMusicToPl(value._id)}>{value.name}</li>
                                         ))

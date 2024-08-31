@@ -311,3 +311,19 @@ ul li{
   border-radius: 5px;
   cursor: pointer;
 }
+
+.text-717171{
+  color: #717171;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}

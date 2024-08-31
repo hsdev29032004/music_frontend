@@ -2,14 +2,12 @@ import { Link } from 'react-router-dom';
 import "./Music.css";
 import { Fragment, useRef } from 'react';
 import { likeMusic } from '../../services/favorite';
-import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { openMusicInPlMenuContext } from '../../actions/menuContext';
 
 export default function ShortMusic({ data, likedMusic, userId, active, onClick, musicKey }) {
     const dispatch = useDispatch()
 
-    const [messageApi, contextHolder] = message.useMessage();
     const heartRef = useRef(null);
 
     const allSingers = [data.singerId, ...data.otherSingersId];
@@ -30,12 +28,11 @@ export default function ShortMusic({ data, likedMusic, userId, active, onClick, 
     const handleLike = async (e) => {
         e.stopPropagation()
         const result = await likeMusic(data.key, userId)
-        if (result.msg === "Thích bài hát thành công.") {
+        if (result.status === "like") {
             heartRef.current.classList.add("liked");
-        } else if (result.msg === "Bỏ thích bài hát thành công.") {
+        } else if (result.status === "unlike") {
             heartRef.current.classList.remove("liked");
         }
-        messageApi[result.status](result.msg)
     }
 
     const handleOpenMenu = (event, musicKey) => {
@@ -49,7 +46,6 @@ export default function ShortMusic({ data, likedMusic, userId, active, onClick, 
     
     return (
         <>
-            {contextHolder}
             <div className={`music-playlist-item ${active ? "current-music" : ""}`}>
                 <div className="inner-item">
                     <div className="inner-img-playlist">

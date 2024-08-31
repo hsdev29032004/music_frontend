@@ -1,0 +1,19 @@
+.detail-container .inner-image{
+    aspect-ratio: 1/1;
+}
+
+.content{
+    text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+    .content{
+        text-align: unset
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .content{
+        text-align: center
+    }
+}

@@ -1,4 +1,4 @@
-import { _delete, _get, _patch } from "../utils/request"
+import { _delete, _get, _patch, _post } from "../utils/request"
 
 export const getListComment = async () => {
     const response = await _get(`/comment`)
@@ -20,6 +20,12 @@ export const allowComment = async (commentId) => {
 
 export const refuseComment = async (commentId) => {
     const response = await _delete(`/comment/refuse/${commentId}`)
+    const result = await response.json()
+    return result
+}
+
+export const createComment = async (data) => {
+    const response = await _post(`/comment/create`, data)
     const result = await response.json()
     return result
 }
