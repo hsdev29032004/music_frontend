@@ -6,6 +6,7 @@ import Detail from "../../components/Detail/Detail";
 import { useSelector } from "react-redux";
 import Music from "../../components/Music/Music";
 import NotFound from "../NotFound/NotFound.js";
+import { Helmet } from "react-helmet-async";
 
 export default function Album({ title }) {
     const [messageApi, contextHolder] = message.useMessage()
@@ -14,12 +15,6 @@ export default function Album({ title }) {
     const { slug } = useParams("slug")
 
     const user = useSelector(state => state.loginReducer).value
-
-
-    useEffect(() => {
-        document.title = title
-        // eslint-disable-next-line
-    }, [])
 
     useEffect(() => {
         const fetchAlbum = async () => {
@@ -33,6 +28,9 @@ export default function Album({ title }) {
 
     return (
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             {album ? (
                 <div className="row">

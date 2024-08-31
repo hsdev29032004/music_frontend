@@ -6,6 +6,7 @@ import { getListComment } from "../../services/comment"
 import CommentTable from "../../components/Comment/Comment"
 import CreateSinger from "../../components/Modal/CreateSinger"
 import { message } from "antd"
+import { Helmet } from "react-helmet-async"
 
 export default function Dashboard ({title}){
     const [info, setInfo] = useState({})
@@ -39,6 +40,9 @@ export default function Dashboard ({title}){
 
     return(
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             {openModalCreate ? <CreateSinger messageApi={messageApi} setOpenModalCreate={setOpenModalCreate} /> : null}
             <div className="row">
@@ -54,7 +58,7 @@ export default function Dashboard ({title}){
                         <PieChart data={info.quantityMusic}/>
                     </div>
                 </div>
-                <div className="col-xl-4 col-lg-4 col-md-12 col-sm-6 col-12">
+                <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                     <div className="col-12" style={{backgroundColor: "#292929", borderRadius: "10px", padding: "10px", marginTop: "10px"}}>
                         <div>
                             <h3 className="dflex-aj-center" style={{fontSize: "25px", color: "white"}}>

@@ -11,6 +11,7 @@ import { getListSinger } from "../../services/singer";
 import { getListMusicType } from "../../services/musicType";
 import Singer from "../../components/Singer/Singer";
 import Music from "../../components/Music/Music";
+import { Helmet } from "react-helmet-async";
 
 export default function Discover({ title }) {
     const [messageApi, contextHolder] = message.useMessage();
@@ -23,11 +24,6 @@ export default function Discover({ title }) {
 
     const user = useSelector(state => state.loginReducer).value
     const {albumChange: reloadAlbum} = useSelector(state => state.reloadReducer)
-            
-    useEffect(() => {
-        document.title = title;
-        // eslint-disable-next-line
-    }, [title]);
 
     const handleNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % arr.length);
@@ -129,6 +125,9 @@ export default function Discover({ title }) {
 
     return (
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             <div className="d-flex top-container">
                 <LeftOutlined onClick={handlePrevious} />

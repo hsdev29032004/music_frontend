@@ -1,12 +1,11 @@
-import { useEffect } from "react"
+import { Helmet } from "react-helmet-async"
 
 export default function Config ({title}){
-    useEffect(() => {
-        document.title = title
-        // eslint-disable-next-line
-    }, [])
     return(
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             Config
         </>
     )

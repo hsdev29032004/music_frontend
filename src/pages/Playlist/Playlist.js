@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Music from "../../components/Music/Music";
 import { getPlaylist } from "../../services/playlist";
 import NotFound from "../NotFound/NotFound.js";
+import { Helmet } from "react-helmet-async";
 
 export default function Playlist({ title }) {
     const [messageApi, contextHolder] = message.useMessage()
@@ -14,11 +15,6 @@ export default function Playlist({ title }) {
     const { slug } = useParams("slug")
 
     const user = useSelector(state => state.loginReducer).value
-
-    useEffect(() => {
-        document.title = title
-        // eslint-disable-next-line
-    }, [])
 
     useEffect(() => {
         const fetchPlaylist = async () => {
@@ -32,6 +28,9 @@ export default function Playlist({ title }) {
 
     return (
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             {playlist ? (
                 <div className="row">
@@ -46,8 +45,8 @@ export default function Playlist({ title }) {
                                         <div className="col-12" key={key}>
                                             <Music
                                                 data={value}
-                                                likedMusic={user.likedMusic}
-                                                userId={user._id}
+                                                likedMusic={user?.likedMusic}
+                                                userId={user?._id}
                                                 showLike
                                                 showDelete={playlist._id}
                                             />

@@ -86,7 +86,7 @@ export default function MusicInPlContextMenu({ menuPosition, musicKey, onNext, p
     }
 
     const handleAddMusicToPl = async (playlistId) => {
-        const musicId = (JSON.parse(localStorage.getItem("queuePlaylist"))).find(item => item.id === musicKey).key
+        const musicId = (JSON.parse(localStorage.getItem("queuePlaylist"))).find(item => item.id === musicKey)._id        
         const result = await addToPlaylist({musicId, playlistId})
         messageApi[result.status](result.msg)
     }

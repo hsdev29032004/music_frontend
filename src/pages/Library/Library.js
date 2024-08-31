@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Empty, message, Tabs, Typography } from 'antd';
 import { Link } from "react-router-dom"
@@ -11,15 +10,12 @@ import { closePlaylistMenuContext, openPlaylistMenuContext } from "../../actions
 import { deletePlaylist } from "../../services/playlist";
 import { reloadPlaylist } from '../../actions/reload';
 import { handleReplaceWaitingList } from "../../helpers/playlist";
+import { Helmet } from "react-helmet-async";
 
 export default function Library({ title }) {
     const [messageApi, contextHolder] = message.useMessage();
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        document.title = title
-        // eslint-disable-next-line
-    }, [])
     const user = useSelector(state => state.loginReducer).value
     const playlist = useSelector(state => state.savePlReducer)
     
@@ -45,21 +41,29 @@ export default function Library({ title }) {
 
     if (user?.level === 0) {
         return (
-            <Empty
-                image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-                imageStyle={{ height: 60 }}
-                description={
-                    <Typography.Text style={{color: "white"}}>
-                       Bạn chưa <Link to="/login">đăng nhập</Link>
-                    </Typography.Text>
-                }
-            >
-            </Empty>
+            <>
+                <Helmet>
+                    <title>{title}</title>
+                </Helmet>
+                <Empty
+                    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    imageStyle={{ height: 60 }}
+                    description={
+                        <Typography.Text style={{color: "white"}}>
+                        Bạn chưa <Link to="/login">đăng nhập</Link>
+                        </Typography.Text>
+                    }
+                >
+                </Empty>
+            </>
         )
     }
 
     return (
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             <h4 className="mb-2 pl-3">Thư viện</h4>
             {user?.subcribedSinger.length > 0 && (

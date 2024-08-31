@@ -8,6 +8,7 @@ import { message } from "antd";
 import parseLyrics from "../../helpers/parseLyrics";
 import io from "socket.io-client"
 import NotFound from "../NotFound/NotFound.js";
+import { Helmet } from "react-helmet-async";
 const socket = io.connect("http://localhost:3001")
 
 export default function Music({ title }) {
@@ -19,12 +20,9 @@ export default function Music({ title }) {
     const user = useSelector(state => state.loginReducer).value
 
     useEffect(() => {
-        document.title = title
-        // eslint-disable-next-line
-    }, [])
-
-    useEffect(() => {
-        inputRef.current.value = ""
+        if(inputRef.current){
+            inputRef.current.value = ""
+        }
         if (slug !== "") {
             socket.emit("JOIN_ROOM", slug)
         }
@@ -79,6 +77,9 @@ export default function Music({ title }) {
 
     return (
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             {music ? (
                 <>

@@ -1,13 +1,9 @@
 import { Col, Form, Input, message, Row } from "antd";
 import { login } from "../../../services/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 export default function Login({title}) {
-    useEffect(() => {
-        document.title = title
-        // eslint-disable-next-line
-    }, [])
     const [messageApi, contextHolder] = message.useMessage();
     const navigate = useNavigate()
     
@@ -22,6 +18,9 @@ export default function Login({title}) {
 
     return(
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             <div className="card">
                 <h2 className="text-center text-white fw-700 mb-4">Đăng nhập</h2>

@@ -1,14 +1,11 @@
 import { Form, Input, message } from "antd";
 import { postOtp, postRequest, resetPassword } from "../../../services/forgotPassword";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { setCookie } from "../../../helpers/cookie"
+import { Helmet } from "react-helmet-async";
 
 export default function ForgotPassword({title}) {
-    useEffect(() => {
-        document.title = title
-        // eslint-disable-next-line
-    }, [])
     const [messageApi, contextHolder] = message.useMessage();
     const inputRef = useRef(null)
     const navigate = useNavigate()
@@ -43,6 +40,9 @@ export default function ForgotPassword({title}) {
     }
     return(
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             <div className="card">
                 <h2 className="text-center text-white fw-700 mb-4">Quên mật khẩu</h2>

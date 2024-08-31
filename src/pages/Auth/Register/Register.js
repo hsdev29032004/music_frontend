@@ -1,13 +1,9 @@
 import { Form, Input, message } from "antd";
 import { register } from "../../../services/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 export default function Register({title}) {
-    useEffect(() => {
-        document.title = title
-        // eslint-disable-next-line
-    }, [])
     const [messageApi, contextHolder] = message.useMessage();
     const navigate = useNavigate()
 
@@ -23,6 +19,9 @@ export default function Register({title}) {
 
     return(
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             <div className="card">
                 <h2 className="text-center text-white fw-700 mb-4">Đăng ký</h2>

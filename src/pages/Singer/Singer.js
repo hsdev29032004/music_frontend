@@ -10,6 +10,7 @@ import Music from "../../components/Music/Music";
 import Album from "../../components/Album/Album";
 import { openModalCreateAlbum, openModalCreateMusic } from "../../actions/modal";
 import EditSinger from "../../components/Modal/EditSinger";
+import { Helmet } from "react-helmet-async";
 
 export default function Singer({title}) {
     const user = useSelector(state => state.loginReducer).value
@@ -66,6 +67,9 @@ export default function Singer({title}) {
 
     return (
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             {openModalEdit ? <EditSinger singer={singer} messageApi={messageApi} setOpenModalEdit={setOpenModalEdit} /> : null}
             {singer ? (

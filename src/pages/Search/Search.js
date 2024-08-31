@@ -9,6 +9,7 @@ import Album from "../../components/Album/Album";
 import { getListSinger } from "../../services/singer";
 import Singer from "../../components/Singer/Singer";
 import { getListMusicType } from "../../services/musicType";
+import { Helmet } from "react-helmet-async";
 
 export default function Search({title}){
     const [music, setMusic] = useState([])
@@ -21,11 +22,6 @@ export default function Search({title}){
     const [messageApi, contextHolder] = message.useMessage();
     
     const user = useSelector(state => state.loginReducer).value
-
-    useEffect(() => {
-        document.title = title
-        // eslint-disable-next-line
-    }, [])
 
     useEffect(() => {
         const inputSearch = document.querySelector("#input-search")
@@ -68,6 +64,9 @@ export default function Search({title}){
     
     return(
         <>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             {contextHolder}
             <h3 className="fw-700">Kết quả tìm kiếm</h3>
 

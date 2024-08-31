@@ -7,13 +7,16 @@
     import { openModalCreatePlaylist } from '../../actions/modal';
     import { openPlaylistMenuContext } from '../../actions/menuContext';
     import { savePl } from '../../actions/savePl';
+import { message } from 'antd';
 
     export default function Menu() {
         const [collapse, setCollapse] = useState(window.matchMedia('(max-width: 1125px)').matches);
         const [playlist, setPlaylist] = useState([])
         const dispatch = useDispatch()
         const location = useLocation();    
-        const navigate = useNavigate()    
+        const navigate = useNavigate()   
+        
+        const [messageApi, contextHolder] = message.useMessage()
 
         const menuRef = useRef(null);
         const imgRef = useRef(null);
@@ -177,6 +180,7 @@
 
         return (
             <>
+                {contextHolder}
                 <div id="menu" ref={menuRef}>
                     <div className="header-logo dflex-aj-center">
                         <img
@@ -191,12 +195,21 @@
                         <ul>
                             {menus.map((item, key) =>
                                 value?.level >= item.level && (
-                                    <NavLink to={item.path} key={key} className="text-gray fw-600 mt-3 mb-3">
-                                        <li className="d-flex">
-                                            <i className={`${item.icon} mr-3`} style={{ fontSize: "20px", zIndex: 2 }}></i>
-                                            <p style={{ zIndex: 2 }}>{item.content}</p>
-                                        </li>
-                                    </NavLink>
+                                    item.path !== "/config" ? (
+                                        <NavLink to={item.path} key={key} className="text-gray fw-600 mt-3 mb-3">
+                                            <li className="d-flex">
+                                                <i className={`${item.icon} mr-3`} style={{ fontSize: "20px", zIndex: 2 }}></i>
+                                                <p style={{ zIndex: 2 }}>{item.content}</p>
+                                            </li>
+                                        </NavLink>
+                                    ) : (
+                                        <div onClick={() => messageApi.warning("Làm lâu quá nên thôi :(")} key={key} className="text-gray fw-600">
+                                            <li className="d-flex">
+                                                <i className={`${item.icon} mr-3`} style={{ fontSize: "20px", zIndex: 2 }}></i>
+                                                <p style={{ zIndex: 2 }}>{item.content}</p>
+                                            </li>
+                                        </div>
+                                    )
                                 )
                             )}
                             <div id="menu-action"></div>
