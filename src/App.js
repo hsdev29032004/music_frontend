@@ -17,6 +17,7 @@ import Search from './pages/Search/Search.js';
 import Singer from './pages/Singer/Singer.js';
 import Music from './pages/Music/Music.js';
 import Album from './pages/Album/Album.js';
+import Playlist from './pages/Playlist/Playlist.js';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path='/singer/:slug' element={<Singer title="Meelow - Ca sĩ" />}></Route>
             <Route path='/music/:slug' element={<Music title="Meelow - Bài hát" />}></Route>
             <Route path='/album/:slug' element={<Album title="Meelow - Album" />}></Route>
+            <Route path='/playlist/:slug' element={<Playlist title="Meelow - Playlist" />}></Route>
             <Route element={<Unauthorized />}>
               <Route path='/config' element={<Config title="Meelow - Cài đặt website"/>}></Route>
               <Route path='/dashboard' element={<Dashboard title="Meelow - Tổng quan"/>}></Route>

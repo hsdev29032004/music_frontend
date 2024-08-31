@@ -2,7 +2,7 @@
     import { LeftOutlined, RightOutlined } from '@ant-design/icons';
     import { getListPlaylist } from '../../services/playlist';
     import { useDispatch, useSelector } from 'react-redux';
-    import { Link, NavLink, useLocation } from 'react-router-dom';
+    import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
     import './Menu.css';
     import { openModalCreatePlaylist } from '../../actions/modal';
     import { openPlaylistMenuContext } from '../../actions/menuContext';
@@ -12,7 +12,8 @@
         const [collapse, setCollapse] = useState(window.matchMedia('(max-width: 1125px)').matches);
         const [playlist, setPlaylist] = useState([])
         const dispatch = useDispatch()
-        const location = useLocation();        
+        const location = useLocation();    
+        const navigate = useNavigate()    
 
         const menuRef = useRef(null);
         const imgRef = useRef(null);
@@ -219,7 +220,7 @@
                         )}
                         <ul>
                             {playlist && playlist.length > 0 ? playlist.map((value, key) => (
-                                <li key={key} className="text-gray d-flex-spacebetween playlist-item">
+                                <li onClick={() => navigate(`/playlist/${value.slug}`)} key={key} className="text-gray d-flex-spacebetween playlist-item">
                                     <p style={{padding: "5px"}}>{value.name}</p>
                                     <i onClick={(event) => handleOpenMenu(event, value)} className="fa-solid fa-ellipsis icon-more"></i>
                                 </li>

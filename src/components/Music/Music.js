@@ -7,11 +7,13 @@ import { useDispatch } from 'react-redux';
 import { openMusicMenuContext } from '../../actions/menuContext';
 import { handleReplaceWaitingList } from '../../helpers/playlist';
 import { formatNumber } from "../../helpers/format"
+import { deleteFromPlaylist } from '../../services/music';
 
-export default function Music({ data, likedMusic, userId, showMore, showLike }) {   
+export default function Music({ data, likedMusic, userId, showMore, showLike, showDelete}) {   
     const dispatch = useDispatch()
     const [quantityLike, setQuantityLike] = useState(data.quantityLike)
     const [isLiked, setIsLiked] = useState(likedMusic?.some(item => item._id === data._id))    
+    const [_delete, setDelete] = useState(false)
 
     const [messageApi, contextHolder] = message.useMessage();
     const heartRef = useRef(null);
@@ -53,6 +55,17 @@ export default function Music({ data, likedMusic, userId, showMore, showLike }) 
          
         dispatch(openMusicMenuContext({music: data, menuPosition: {top, left}}))
     }
+
+    const handleDelete = async () => {
+        const result = await deleteFromPlaylist({musicId: data._id, playlistId: showDelete})
+        if(result.status === "success"){
+            setDelete(true)
+        }
+    }
+
+    if(_delete){
+        return null
+    }
     
     return (
         <>
@@ -75,6 +88,7 @@ export default function Music({ data, likedMusic, userId, showMore, showLike }) 
                 <div className="icon-container">
                     <i onClick={() => handleReplaceWaitingList(data, dispatch, messageApi, "MUSIC")} className="fa-solid fa-triangle"></i>
                     <i ref={heartRef} onClick={handleLike} className={`fa-duotone fa-solid fa-heart ${likedMusic?.some(item => item._id === data._id) ? 'liked' : ''}`}></i>
+                    {showDelete && <i onClick={handleDelete} className="fa-solid fa-trash"></i>}
                     <i onClick={(event) => handleOpenMenu(event, data)} className="fa-solid fa-ellipsis ml-2"></i>
                 </div>
                 {showMore && <i onClick={(event) => handleOpenMenu(event, data)} className="fa-solid fa-ellipsis ml-2 hover-none" style={{padding: "5px"}}></i>}

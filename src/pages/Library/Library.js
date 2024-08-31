@@ -141,7 +141,7 @@ export default function Library({ title }) {
                                                 </div>
                                             </div>
                                             <div className="mt-2 text-center">
-                                                <Link to={`album/${value.slug}`} className="ellipsis">
+                                                <Link to={`/playlist/${value.slug}`} className="ellipsis">
                                                     <h3 className='album-link'>{value.name}</h3>
                                                 </Link>
                                             </div>

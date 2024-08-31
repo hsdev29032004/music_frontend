@@ -43,7 +43,7 @@ export const addToPlaylist = async (data) => {
 }
 
 export const deleteFromPlaylist = async (data) => {
-    const response = await _patch(`/music/delete/fromPlaylist`, data)   
+    const response = await _post(`/music/deleteFromPlaylist`, data)   
     const result = await response.json()
     return result
 }
