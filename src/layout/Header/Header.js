@@ -1,15 +1,17 @@
-import { Col, Row } from "antd"
+import { Col, message, Row } from "antd"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import { logout } from "../../services/auth"
 import ChangePassword from "../../components/Modal/ChangePassword"
 import InfoUser from "../../components/Modal/InfoUser"
+import { handleUpgrate } from "../../helpers/payment"
 
 export default function Header() {
     const [openMenuUser, setOpenMenuUser] = useState(false)
     const [openModalChangePassword, setOpenModalChangePassword] = useState(false)
     const [openModalInfoUser, setOpenInfoUser] = useState(false)
+    const [messageApi, contextHolder] = message.useMessage()
 
     const location = useLocation();
     const navigate = useNavigate()
@@ -65,11 +67,12 @@ export default function Header() {
 
     return (
         <>
+            {contextHolder}
             <ChangePassword open={openModalChangePassword} setOpen={setOpenModalChangePassword} />
             <InfoUser open={openModalInfoUser} setOpen={setOpenInfoUser}/>
             <div id="header">
                 <Row className="inner-header">
-                    <Col xxl={9} xl={9} lg={9} md={9} sm={9} xs={9}>
+                    <Col xxl={12} xl={13} lg={14} md={15} sm={16} xs={17}>
                         <input 
                             id="input-search"
                             onKeyDown={(e) => handleSearch(e)} 
@@ -78,10 +81,7 @@ export default function Header() {
                             autoComplete="off"
                         />
                     </Col>
-                    <Col xxl={15} xl={15} lg={15} md={15} sm={15} xs={15} style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
-                        {value?.level === 1 && (
-                            <p className="btn-purple">Nâng cấp tài khoản</p>
-                        )}
+                    <Col xxl={12} xl={11} lg={10} md={9} sm={8} xs={7} style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
                         <div className="inner-avatar ml-2">
                             <img onClick={() => value?.level !== 0 ? setOpenMenuUser(!openMenuUser) : navigate("/login")} src={value?.avatar || "https://res.cloudinary.com/dfjft1zvv/image/upload/v1722247373/orrqmjzdwcrwlmz5k9ti.jpg"} alt="avt" />
                             {openMenuUser ? (
@@ -100,7 +100,7 @@ export default function Header() {
                                             <h4>Meelow PREMIUM</h4>
                                             <p className="mt-1 mb-1 fw-700">Chỉ với 30.000đ/Tháng</p>
                                             <p className="mb-2 fw-400">Nghe toàn bộ kho nhạc premium chất lượng cao</p>
-                                            <button className="btn-purple pt-1 pb-1">Nâng cấp ngay</button>
+                                            <button onClick={() => handleUpgrate(messageApi)} className="btn-purple pt-1 pb-1">Nâng cấp ngay</button>
                                         </div>
                                     ) : null}
                                     <div className="list-hover">

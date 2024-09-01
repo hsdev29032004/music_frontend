@@ -7,7 +7,8 @@
     import { openModalCreatePlaylist } from '../../actions/modal';
     import { openPlaylistMenuContext } from '../../actions/menuContext';
     import { savePl } from '../../actions/savePl';
-import { message } from 'antd';
+    import { message } from 'antd';
+    import { handleUpgrate } from '../../helpers/payment';
 
     export default function Menu() {
         const [collapse, setCollapse] = useState(window.matchMedia('(max-width: 1125px)').matches);
@@ -176,7 +177,7 @@ import { message } from 'antd';
                 icon: "fa-solid fa-gear",
                 level: 3,
             },
-        ];    
+        ];
 
         return (
             <>
@@ -222,7 +223,7 @@ import { message } from 'antd';
                         {value?.level === 1 && (
                             <div className="card-nav-upgrade">
                                 <p className="">Nâng cấp để nghe toàn bộ kho nhạc PREMIUM</p>
-                                <div className="btn-yellow">Nâng cấp tài khoản</div>
+                                <div onClick={() => handleUpgrate(messageApi)} className="btn-yellow">Nâng cấp tài khoản</div>
                             </div>
                         )}
                         {value?.level === 0 && (
