@@ -38,25 +38,25 @@ function App() {
     <HelmetProvider>
       <Routes>
         <Route element={<Auth />}>
-          <Route path='/login' element={<Login title={`${system.siteName || "Meelow"} - Đăng nhập`} />} />
-          <Route path='/register' element={<Register title={`${system.siteName} - Đăng ký`} />} />
-          <Route path='/forgot-password' element={<ForgotPassword title={`${system.siteName || "Meelow"} - Quên mật khẩu`} />} />
+          <Route path='/login' element={<Login title={`${system?.siteName || "Meelow"} - Đăng nhập`} />} />
+          <Route path='/register' element={<Register title={`${system?.siteName} - Đăng ký`} />} />
+          <Route path='/forgot-password' element={<ForgotPassword title={`${system?.siteName || "Meelow"} - Quên mật khẩu`} />} />
         </Route>
         <Route element={<CheckLogin />}>
           <Route element={<Layout />}>
-            <Route path='/' element={<Discover title={`${system.siteName || "Meelow"} - Khám phá`} />} />
-            <Route path='/library' element={<Library title={`${system.siteName || "Meelow"} - Thư viện`} />} />
-            <Route path='/rank' element={<Ranking title={`${system.siteName || "Meelow"} - Bảng xếp hạng`} />} />
-            <Route path='/search' element={<Search title={`${system.siteName || "Meelow"} - Tìm kiếm`} />} />
-            <Route path='/singer/:slug' element={<Singer title={`${system.siteName || "Meelow"} - Ca sĩ`} />} />
-            <Route path='/music/:slug' element={<Music title={`${system.siteName || "Meelow"} - Bài hát`} />} />
-            <Route path='/album/:slug' element={<Album title={`${system.siteName || "Meelow"} - Album`} />} />
-            <Route path='/playlist/:slug' element={<Playlist title={`${system.siteName || "Meelow"} - Playlist`} />} />
+            <Route path='/' element={<Discover title={`${system?.siteName || "Meelow"} - Khám phá`} />} />
+            <Route path='/library' element={<Library title={`${system?.siteName || "Meelow"} - Thư viện`} />} />
+            <Route path='/rank' element={<Ranking title={`${system?.siteName || "Meelow"} - Bảng xếp hạng`} />} />
+            <Route path='/search' element={<Search title={`${system?.siteName || "Meelow"} - Tìm kiếm`} />} />
+            <Route path='/singer/:slug' element={<Singer title={`${system?.siteName || "Meelow"} - Ca sĩ`} />} />
+            <Route path='/music/:slug' element={<Music title={`${system?.siteName || "Meelow"} - Bài hát`} />} />
+            <Route path='/album/:slug' element={<Album title={`${system?.siteName || "Meelow"} - Album`} />} />
+            <Route path='/playlist/:slug' element={<Playlist title={`${system?.siteName || "Meelow"} - Playlist`} />} />
             <Route element={<Unauthorized />}>
-              <Route path='/config' element={<Config title={`${system.siteName || "Meelow"} - Cài đặt website`} />} />
-              <Route path='/dashboard' element={<Dashboard title={`${system.siteName || "Meelow"} - Tổng quan`} />} />
+              <Route path='/config' element={<Config title={`${system?.siteName || "Meelow"} - Cài đặt website`} />} />
+              <Route path='/dashboard' element={<Dashboard title={`${system?.siteName || "Meelow"} - Tổng quan`} />} />
             </Route>
-            <Route path='*' element={<NotFound title={`${system.siteName || "Meelow"} - 404`} />} />
+            <Route path='*' element={<NotFound title={`${system?.siteName || "Meelow"} - 404`} />} />
           </Route>
         </Route>
       </Routes>
