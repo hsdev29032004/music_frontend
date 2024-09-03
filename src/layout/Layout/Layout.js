@@ -4,6 +4,7 @@ import Menu from "../Menu/Menu";
 import "./Layout.css";
 import Playlist from "../Playlist/Playlist";
 import Header from "../Header/Header";
+import { useSelector } from 'react-redux';
 
 export default function Layout() {
     const mainRef = useRef(null);
@@ -13,6 +14,8 @@ export default function Layout() {
     const [scrollTop, setScrollTop] = useState(0);
     const [showFakeScroll, setShowFakeScroll] = useState(false);
     const location = useLocation()
+
+    const system = useSelector(state => state.systemInfoReducer)
 
     useEffect(() => {
         const mainElement = mainRef.current;
@@ -63,7 +66,7 @@ export default function Layout() {
                         <div className="fake-scroll-thumb" ref={thumbRef}></div>
                     </div>
                 )}
-                <footer className='pt-2 pb-2 mt-4 text-center' style={{borderTop: "1px solid #3f3f3f", color: "#717171", fontSize: "15px"}}>The user interface of this website is modified from ZingMP3</footer>
+                <footer className='pt-2 pb-2 mt-4 text-center' style={{borderTop: "1px solid #3f3f3f", color: "#717171", fontSize: "15px"}}>{system.footer}</footer>
             </div>
             <Playlist />
         </>

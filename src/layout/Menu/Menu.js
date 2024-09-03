@@ -196,20 +196,13 @@
                         <ul>
                             {menus.map((item, key) =>
                                 value?.level >= item.level && (
-                                    item.path !== "/config" ? (
+                                    (
                                         <NavLink to={item.path} key={key} className="text-gray fw-600 mt-3 mb-3">
                                             <li className="d-flex">
                                                 <i className={`${item.icon} mr-3`} style={{ fontSize: "20px", zIndex: 2 }}></i>
                                                 <p style={{ zIndex: 2 }}>{item.content}</p>
                                             </li>
                                         </NavLink>
-                                    ) : (
-                                        <div onClick={() => messageApi.warning("Làm lâu quá nên thôi :(")} key={key} className="text-gray fw-600">
-                                            <li className="d-flex">
-                                                <i className={`${item.icon} mr-3`} style={{ fontSize: "20px", zIndex: 2 }}></i>
-                                                <p style={{ zIndex: 2 }}>{item.content}</p>
-                                            </li>
-                                        </div>
                                     )
                                 )
                             )}

@@ -12,8 +12,8 @@ export default function Register({title}) {
         if(res.status === "error"){
             messageApi.error(res.msg)
         }else{
-            await messageApi.success(res.msg)
-            navigate("/login")
+            await messageApi.success(res.msg, 1)
+            navigate("/")
         }
     }
 

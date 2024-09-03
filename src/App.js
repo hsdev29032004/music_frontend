@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import Auth from './pages/Auth/Auth';
@@ -21,18 +21,23 @@ import Music from './pages/Music/Music.js';
 import Album from './pages/Album/Album.js';
 import Playlist from './pages/Playlist/Playlist.js';
 import { getSystem } from './services/system.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { systemInfo } from "./actions/system.js"
 
 function App() {
-  const [system, setSystem] = useState({})
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchSystem = async () => {
-        const result = await getSystem()        
-        setSystem(result.data)
+      const result = await getSystem()
+      dispatch(systemInfo(result.data))
     };
 
     fetchSystem()
-  }, []);  
+    // eslint-disable-next-line
+  }, []);
+
+  const system = useSelector(state => state.systemInfoReducer)
 
   return (
     <HelmetProvider>

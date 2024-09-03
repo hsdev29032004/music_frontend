@@ -5,6 +5,7 @@ import { playlistContextMenuReducer, musicInPlContextMenuReducer, albumContextMe
 import { loadPlReducer } from "./loadPl";
 import { reloadReducer } from "./reload";
 import { savePlReducer } from "./savePl";
+import { systemInfoReducer } from "./system";
 
 const allReducers = combineReducers({
     loginReducer,
@@ -15,7 +16,8 @@ const allReducers = combineReducers({
     musicContextMenuReducer,
     loadPlReducer,
     reloadReducer,
-    savePlReducer
+    savePlReducer,
+    systemInfoReducer
 });
 
 export default allReducers;
