@@ -12,7 +12,7 @@ export default function Singer({value, messageApi, user}){
     const [isSubscribed, setIsSubscribed] = useState()
 
     useEffect(() => {
-        setIsSubscribed(user?.subcribedSinger.some(item => item._id === value._id))
+        setIsSubscribed(user?.subcribedSinger?.some(item => item._id === value._id))
         // eslint-disable-next-line
     }, [user])
     
