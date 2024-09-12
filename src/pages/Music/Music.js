@@ -9,7 +9,7 @@ import parseLyrics from "../../helpers/parseLyrics";
 import io from "socket.io-client"
 import NotFound from "../NotFound/NotFound.js";
 import { Helmet } from "react-helmet-async";
-const socket = io.connect("http://localhost:3001")
+const socket = io.connect("https://meelow-backend.vercel.app")
 
 export default function Music({ title }) {
     const [music, setMusic] = useState(null)
