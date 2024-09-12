@@ -45,10 +45,10 @@ export default function Config({ title }) {
                     autoComplete="off"
                     layout="vertical"
                     initialValues={{
-                        siteName: system.siteName,
-                        upgradePrice: system.upgradePrice,
-                        momo: system.momo,
-                        footer: system.footer
+                        siteName: system?.siteName,
+                        upgradePrice: system?.upgradePrice,
+                        momo: system?.momo,
+                        footer: system?.footer
                     }}
                 >
                     <Form.Item
