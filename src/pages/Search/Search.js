@@ -89,7 +89,7 @@ export default function Search({title}){
                 <div className="music-container mt-4">
                     <h4 className="mb-2 pl-3">Bài hát</h4>
                     <div className="d-flex" style={{flexWrap: "wrap"}}>
-                        {music.slice(0, 6).map((value) => (
+                        {music?.slice(0, 6).map((value) => (
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" key={value?._id}>
                                 <Music
                                     data={value}
@@ -107,7 +107,7 @@ export default function Search({title}){
                 <div className="album-container mt-4">
                     <h4 className="mb-2 pl-3 fw-700" style={{fontSize: "21px"}}>Album</h4>
                     <div className="d-flex inner-album-container">
-                        {album.slice(0, 6).map((value) => (
+                        {album?.slice(0, 6).map((value) => (
                             <div className="album-item col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6" key={value._id}>
                                 <Album messageApi={messageApi} value={value} user={user} />
                             </div>
