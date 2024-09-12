@@ -14,11 +14,11 @@ export default function Detail({data, user, messageApi, type}){
     useEffect(() => {
         switch (type) {
             case "MUSIC":
-                setIsLiked(user?.likedMusic.some(item => item._id === data?._id))
+                setIsLiked(user?.likedMusic?.some(item => item._id === data?._id))
                 setQuantityLike(data?.quantityLike)
                 break;
             case "ALBUM":
-                setIsLiked(user?.likedAlbum.some(item => item._id === data?._id))
+                setIsLiked(user?.likedAlbum?.some(item => item._id === data?._id))
                 setQuantityLike(data?.quantityLike)
                 break;
             default:
