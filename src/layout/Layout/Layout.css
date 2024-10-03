@@ -91,6 +91,27 @@
     }
 }
 
+@media screen and (max-width: 576px) {
+    #menu{
+        display: none;
+    }
+    #main{
+        margin-left: 0px;
+        padding-bottom: 61.98px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .inner-header{
+        padding-left: 40px;
+    }
+    #menu-mobile{
+        display: block;
+    }
+    .fake-scroll{
+        display: none;
+    }
+}
+
 .inner-avatar{
     display: flex;
     align-items: center;

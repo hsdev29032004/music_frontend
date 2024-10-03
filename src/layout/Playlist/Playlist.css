@@ -123,9 +123,30 @@
     cursor: pointer;
 }
 
+.audio{
+    position: absolute;
+    bottom: 10px;
+    text-align: center; 
+    width: 100%
+}
+
+@media screen and (max-width: 576px) {
+    .btn-collapse-playlist{
+        bottom: 82px;
+    }
+    .audio{
+        bottom: 72px;
+    }
+}
 
 @media screen and (max-width: 1350px) {
     .btn-collapse-playlist{
         display: block;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #playlist{
+        margin-bottom: 62px;
     }
 }

@@ -108,7 +108,7 @@ export default function Library({ title }) {
                         label: "Album",
                         children: user?.likedAlbum.length > 0 ? (
                             <div className="album-container mt-4">
-                                <div className="d-flex inner-album-container">
+                                <div className="d-flex inner-album-container" style={{flexWrap: "wrap"}}>
                                     {user.likedAlbum.map((value, key) => (
                                         <div className="album-item col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6" key={key}>
                                             <Album messageApi={messageApi} value={value} user={user} />
@@ -124,7 +124,7 @@ export default function Library({ title }) {
                         label: "Playlist",
                         children: playlist?.length > 0 ? (
                             <div className="album-container mt-4">
-                                <div className="d-flex inner-album-container">
+                                <div className="d-flex inner-album-container" style={{flexWrap: "wrap"}}>
                                     <div className="album-item col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6" >
                                         <div 
                                             className="dflex-aj-center" 

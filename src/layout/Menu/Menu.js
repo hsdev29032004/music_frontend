@@ -247,6 +247,22 @@
                             <LeftOutlined className="icon-collapse" onClick={handleClick} />}
                     </div>
                 </div>
+
+                <div id="menu-mobile" style={{position: "fixed", bottom: 0, left: 0, zIndex: 999, width: "100vw", backgroundColor: "#292929"}}>
+                    <ul style={{display: "flex", width: "100vw", padding: 0, justifyContent: 'center'}}>
+                        {menus.map((item, key) =>
+                            value?.level >= item.level && (
+                                (
+                                    <NavLink to={item.path} key={key} className="text-gray fw-600 pt-3 pb-3">
+                                        <li className="d-flex">
+                                            <i className={`${item.icon} mr-3`} style={{ fontSize: "20px", zIndex: 2 }}></i>
+                                        </li>
+                                    </NavLink>
+                                )
+                            )
+                        )}
+                    </ul>
+                </div>
             </>
         );
     }

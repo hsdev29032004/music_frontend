@@ -261,7 +261,7 @@ export default function Playlist() {
                                 </p>
                             ))}
                         </div>
-                        <div style={{ position: 'absolute', bottom: "10px", textAlign: "center", width: "100%" }}>
+                        <div className='audio'>
                             <p>{currentMusic?.name}</p>
                             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 20px" }}>
                                 <span style={{ paddingRight: "5px" }}>{formatTime(currentTime)}</span>

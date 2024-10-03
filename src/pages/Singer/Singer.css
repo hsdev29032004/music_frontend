@@ -47,9 +47,3 @@
         font-size: 35px !important;
     }
 }
-
-@media screen and (max-width: 440px) {
-    .singer-hero .dflex-a-center{
-        flex-direction: column;
-    }
-}

@@ -7,6 +7,9 @@
     transition: none;
 }
 
+#menu-mobile{
+    display: none;
+}
 
 #menu{
     position: fixed;
@@ -39,12 +42,17 @@
     margin: 0;
 }
 
-#menu a{
+#menu a, #menu-mobile a{
     text-decoration: none;
 }
 
 #menu .active li{
     /* background-color: #404040; */
+    color: white;
+}
+
+#menu-mobile .active{
+    background-color: #404040;
     color: white;
 }
 
