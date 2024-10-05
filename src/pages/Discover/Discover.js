@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./Discover.css";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { DotChartOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { handleAddMusicToWaitingList } from "../../helpers/playlist";
 import { useDispatch, useSelector } from "react-redux";
-import { message } from "antd";
+import { message, Skeleton } from "antd";
 import Album from "../../components/Album/Album";
 import { getListAlbum } from "../../services/album";
 import { getListMusic } from "../../services/music";
@@ -21,6 +21,10 @@ export default function Discover({ title }) {
     const [initSinger, setInitSinger] = useState([])
     const [initMusicType, setInitMusicType] = useState([])
     const dispatch = useDispatch();
+
+    const [loadingAlbum, setLoadingAlbum] = useState(true)
+    const [loadingMusic, setLoadingMusic] = useState(true)
+    const [loadingMusicType, setLoadingMusicType] = useState(true)
 
     const user = useSelector(state => state.loginReducer).value
     const { albumChange: reloadAlbum } = useSelector(state => state.reloadReducer)
@@ -87,18 +91,26 @@ export default function Discover({ title }) {
 
     useEffect(() => {
         const fetchAlbum = async () => {
+            setLoadingAlbum(true)
             const result = await getListAlbum()
             setInitAlbum(result.data)
+            setLoadingAlbum(false)
         }
-        fetchAlbum()
+        // setTimeout(() => {
+            fetchAlbum()
+        // }, 400);
     }, [reloadAlbum])
 
     useEffect(() => {
         const fetchMusic = async () => {
+            setLoadingMusic(true)
             const result = await getListMusic()
             setInitMusic(result.data)
+            setLoadingMusic(false)
         }
-        fetchMusic()
+        // setTimeout(() => {
+            fetchMusic()
+        // }, 300);
     }, [])
 
     useEffect(() => {
@@ -111,10 +123,14 @@ export default function Discover({ title }) {
 
     useEffect(() => {
         const fetchMusicType = async () => {
+            setLoadingMusicType(true)
             const result = await getListMusicType()
             setInitMusicType(result.data)
+            setLoadingMusicType(false)
         }
-        fetchMusicType()
+        // setTimeout(() => {
+            fetchMusicType()
+        // }, 600);
     }, [])
 
     const arr = [
@@ -142,7 +158,24 @@ export default function Discover({ title }) {
                 <RightOutlined onClick={handleNext} />
             </div>
 
-            {Array.isArray(initAlbum) && initAlbum.length > 0 &&
+            {loadingAlbum ? (
+                <div className="album-container">
+                    <Skeleton active style={{ color: "#292929" }} paragraph={{ rows: 1 }} />
+                    <div className="d-flex inner-album-container">
+                        {Array.from({ length: 6 }).map((_, index) => (
+                            <div className="album-item col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6" key={index}>
+                                <Skeleton.Node
+                                    active
+                                    style={{ width: "100%", backgroundColor: "#292929" }}
+                                >
+                                    <DotChartOutlined className="d-none" />
+                                </Skeleton.Node>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                Array.isArray(initAlbum) && initAlbum.length > 0 &&
                 <div className="album-container mt-4">
                     <h4 className="mb-2 pl-3">Album gợi ý</h4>
                     <div className="d-flex inner-album-container">
@@ -153,9 +186,28 @@ export default function Discover({ title }) {
                         ))}
                     </div>
                 </div>
-            }
+            )}
 
-            {Array.isArray(initMusic) && initMusic.length > 0 &&
+            {loadingMusic ? (
+                <div className="music-container">
+                    <Skeleton active paragraph={{ rows: 1 }} />
+                    <div className="d-flex" style={{ flexWrap: "wrap" }}>
+                        {Array.from({ length: 9 }).map((_, index) => (
+                            <div className="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
+                                <div className="dflex-a-center m-1 p-1">
+                                    <div className="col-2">
+                                        <Skeleton.Avatar size={"large"} active style={{ backgroundColor: "#292929" }} />
+                                    </div>
+                                    <div className="col-10">
+                                        <Skeleton paragraph={{ rows: 2 }} style={{ margin: 0 }} />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                Array.isArray(initMusic) && initMusic.length > 0 &&
                 <div className="music-container mt-4">
                     <h4 className="mb-2 pl-3">Có thể bạn thích nghe</h4>
                     <div className="d-flex" style={{ flexWrap: "wrap" }}>
@@ -170,21 +222,39 @@ export default function Discover({ title }) {
                         ))}
                     </div>
                 </div>
-            }
-            {Array.isArray(initMusicType) && initMusicType.length > 0 &&
+            )}
+
+            {loadingMusicType ? (
+                <div className="album-container">
+                    <Skeleton active style={{ color: "#292929" }} paragraph={{ rows: 1 }} />
+                    <div className="d-flex inner-musicType-container" style={{ flexWrap: "nowrap", overflowX: "hidden"}}>
+                        {Array.from({ length: 3 }).map((_, index) => (
+                            <div className="musicType-item col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12" key={index}>
+                                <Skeleton.Node
+                                    active
+                                    style={{ width: "100%", backgroundColor: "#292929" }}
+                                >
+                                    <DotChartOutlined className="d-none" />
+                                </Skeleton.Node>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                Array.isArray(initMusicType) && initMusicType.length > 0 &&
                 <div className="musicType-container mt-4">
                     <h4 className="mb-2 pl-3">Thể loại</h4>
                     <div className="d-flex inner-musicType-container" style={{ flexWrap: "nowrap", overflowX: "auto" }}>
                         {initMusicType.map((value, key) => (
-                            </*Link to={`music-type/${value.slug}`}*/div onClick={comingSoon} className="musicType-item col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12" key={key}>
+                            <div onClick={comingSoon} className="musicType-item col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12" key={key}>
                                 <div className="inner-image">
                                     <img alt="" src={value.avatar} />
                                 </div>
-                            </ /*Link*/ div>
+                            </div>
                         ))}
                     </div>
                 </div>
-            }
+            )}
 
             {Array.isArray(initSinger) && initSinger.length > 0 &&
                 <div className="singer-container mt-4">

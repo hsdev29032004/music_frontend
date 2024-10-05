@@ -82,3 +82,25 @@
     transform: scale(1.1);
     transition: 0.5s;
 }
+
+.ant-skeleton-paragraph{
+    margin: 0 !important;
+}
+
+.ant-skeleton-paragraph li{
+    background-color: #292929 !important;
+}
+
+.album-item .ant-skeleton{
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+
+.musicType-item .ant-skeleton{
+    width: 100%;
+    aspect-ratio: 5/2;
+}
+
+.ant-skeleton-image{
+    height: 100% !important;
+}
