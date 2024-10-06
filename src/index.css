@@ -327,3 +327,7 @@ ul li{
 .cursor-pointer{
   cursor: pointer;
 }
+
+.ant-spin-dot-holder{
+  color: #8B45CA !important;
+}

@@ -87,8 +87,16 @@
     margin: 0 !important;
 }
 
+.inner-album-container .ant-skeleton-paragraph{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .ant-skeleton-paragraph li{
     background-color: #292929 !important;
+    margin: 0 !important;
+    margin-top: 10px !important;
 }
 
 .album-item .ant-skeleton{
@@ -103,4 +111,8 @@
 
 .ant-skeleton-image{
     height: 100% !important;
+}
+
+.ant-skeleton-title{
+    display: none;
 }

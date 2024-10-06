@@ -12,6 +12,8 @@ import { getListMusicType } from "../../services/musicType";
 import Singer from "../../components/Singer/Singer";
 import Music from "../../components/Music/Music";
 import { Helmet } from "react-helmet-async";
+import SkeletonMusic from "../../components/Skeleton/Music";
+import SkeletonAlbum from "../../components/Skeleton/Album";
 
 export default function Discover({ title }) {
     const [messageApi, contextHolder] = message.useMessage();
@@ -98,7 +100,7 @@ export default function Discover({ title }) {
         }
         // setTimeout(() => {
             fetchAlbum()
-        // }, 400);
+        // }, 4000);
     }, [reloadAlbum])
 
     useEffect(() => {
@@ -110,7 +112,7 @@ export default function Discover({ title }) {
         }
         // setTimeout(() => {
             fetchMusic()
-        // }, 300);
+        // }, 3000);
     }, [])
 
     useEffect(() => {
@@ -130,7 +132,7 @@ export default function Discover({ title }) {
         }
         // setTimeout(() => {
             fetchMusicType()
-        // }, 600);
+        // }, 6000);
     }, [])
 
     const arr = [
@@ -160,17 +162,10 @@ export default function Discover({ title }) {
 
             {loadingAlbum ? (
                 <div className="album-container">
-                    <Skeleton active style={{ color: "#292929" }} paragraph={{ rows: 1 }} />
+                    <Skeleton.Input active style={{backgroundColor: "#292929", marginBottom: "10px"}} className="ml-2 mt-3"/>
                     <div className="d-flex inner-album-container">
                         {Array.from({ length: 6 }).map((_, index) => (
-                            <div className="album-item col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6" key={index}>
-                                <Skeleton.Node
-                                    active
-                                    style={{ width: "100%", backgroundColor: "#292929" }}
-                                >
-                                    <DotChartOutlined className="d-none" />
-                                </Skeleton.Node>
-                            </div>
+                            <SkeletonAlbum key={index} />
                         ))}
                     </div>
                 </div>
@@ -190,18 +185,11 @@ export default function Discover({ title }) {
 
             {loadingMusic ? (
                 <div className="music-container">
-                    <Skeleton active paragraph={{ rows: 1 }} />
+                    <Skeleton.Input active style={{backgroundColor: "#292929", marginBottom: "10px"}} className="ml-2 mt-3"/>
                     <div className="d-flex" style={{ flexWrap: "wrap" }}>
                         {Array.from({ length: 9 }).map((_, index) => (
                             <div className="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
-                                <div className="dflex-a-center m-1 p-1">
-                                    <div className="col-2">
-                                        <Skeleton.Avatar size={"large"} active style={{ backgroundColor: "#292929" }} />
-                                    </div>
-                                    <div className="col-10">
-                                        <Skeleton paragraph={{ rows: 2 }} style={{ margin: 0 }} />
-                                    </div>
-                                </div>
+                                <SkeletonMusic />
                             </div>
                         ))}
                     </div>
@@ -226,7 +214,7 @@ export default function Discover({ title }) {
 
             {loadingMusicType ? (
                 <div className="album-container">
-                    <Skeleton active style={{ color: "#292929" }} paragraph={{ rows: 1 }} />
+                    <Skeleton.Input active style={{backgroundColor: "#292929", marginBottom: "10px"}} className="ml-2 mt-3"/>
                     <div className="d-flex inner-musicType-container" style={{ flexWrap: "nowrap", overflowX: "hidden"}}>
                         {Array.from({ length: 3 }).map((_, index) => (
                             <div className="musicType-item col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12" key={index}>
